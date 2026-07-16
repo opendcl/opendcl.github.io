@@ -1,0 +1,82 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Language" content="en-us">
+  <link rel="stylesheet" href="../../../WinHelp.css" type="text/css" media="screen,print">
+
+  <script type="text/javascript" src="../../../Utility.js"></script>
+
+  <title>ImageList-SetAt</title>
+</head>
+<body>
+  <table width="100%">
+    <tr>
+      <td nowrap>
+        <div id="title">
+          <img border="0" src="../../images/Method.png" width="16" height="16">
+          ImageList-SetAt</div>
+      </td>
+      <td align="right" valign="top">
+        <div id="hdrlink" style="font-size: xx-small;">
+          <a href="http://opendcl.com/go?forum&de&post" target="_blank">Anmerkung zur deutschen
+            Übersetzung melden</a><br />
+          <a href="http://opendcl.com/go?forum&de" target="_blank">Deutschsprachiges Forum</a>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <hr />
+  <div id="content">
+    <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse"
+      bordercolor="#111111">
+      <tr>
+        <th bgcolor="#FFCC99" align="left" valign="top" nowrap>
+          Funktionsname
+        </th>
+        <td bgcolor="#CCFF99">
+          dcl-ImageList-SetAt
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#FFCC99" align="left" valign="top" nowrap>
+          Syntax &nbsp;
+          <button title="Copy To Clipboard" onclick="javascript:copyclip(syntax);" style="width: 22px;
+            height: 20px">
+            <img src="../../images/Clipboard.png" width="15" height="13" /></button>
+        </th>
+        <td bgcolor="#CCFF99">
+          <code id="syntax">(dcl-ImageList-SetAt <font color="#FF0000">entImageList [als <a href="../../DataType/ImageList.htm">
+            Symbolliste</a>]</font> <font color="#FF0000">intImageIndex [als <a href="../../DataType/Integer.htm">
+              Integer</a>]</font> <font color="#FF0000">strFilename [als <a href="../../DataType/String.htm">
+                String</a>]</font> <font color="#FF0000">{intWidth [als <a href="../../DataType/Long.htm">
+                  Long</a>]</font> <font color="#FF0000">intHeight [als <a href="../../DataType/Long.htm">
+                    Long</a>]}</font>)</code>
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#FFCC99" align="left" valign="top" nowrap>
+          Rückgabewert
+        </th>
+        <td bgcolor="#CCFF99">
+          <a href="../../DataType/Integer.htm">Integer</a> (neuer oder gel&ouml;schter Bild-Index bei Erfolg, NIL wenn es fehlgeschlagen ist)</td>
+      </tr>
+    </table>
+    <p>Diese Funktion erg&auml;nzt, ersetzt oder l&ouml;scht ein Symbol an der angegebenen Stelle (Bild-Index). Das erste Element in der Symbolliste hat immer den Index 0. &Uuml;bergeben Sie den Bild-Index -1, um das angegebene Bild am Ende zu erg&auml;nzen. Ist der Dateiname nil, wird das Bild an der angegebenen Stelle entfernt. Die optionalen Werte f&uuml;r Breite und H&ouml;he sollten &uuml;bergeben werden, wenn Sie das erste Bild einer leeren Symbolliste hinzuf&uuml;gen. Ist die Dimension der Symbolliste bereits definiert, wird das erste hinzugef&uuml;gte Symbol automatisch auf diese Gr&ouml;&szlig;e neuberechnet. Alle anschlie&szlig;end hinzugef&uuml;gten Symbole werden automatisch auf die Gr&ouml;&szlig;e des ersten Symbols skaliert. &Uuml;bergeben Sie Werte f&uuml;r Breite und H&ouml;he f&uuml;r ein Bild einer bereits gef&uuml;llten Symbolliste, so m&uuml;ssen die angegebenen Werte der Dimension der Symbolliste entsprechen, andernfalls schl&auml;gt die Funktion fehl.</p>
+</div>
+  <hr />
+  <div id="footer">
+    <p>
+      Copyright © 2026 <a href="http://www.opendcl.com" target="_blank">OpenDCL Consortium</a>.
+      Alle Rechte vorbehalten.</p>
+    <p>
+      OpenDCL ist ein Markenzeichen des <a href="http://www.opendcl.com" target="_blank">
+        OpenDCL Consortium</a>.</p>
+    <p>
+      AutoCAD und AutoLISP sind eingetragene Markenzeichen der <a href="http://www.autodesk.com"
+        target="_blank">Autodesk, Inc.</a></p>
+    <p>
+      Windows ist ein eingetragenes Markenzeichen der <a href="http://www.microsoft.com"
+        target="_blank">Microsoft Corporation</a> in den USA und anderen Staaten.</p>
+  </div>
+</body>
+</html>

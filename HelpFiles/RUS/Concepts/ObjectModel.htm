@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Language" content="en-us">
+  <link rel="stylesheet" href="../WinHelp.css" type="text/css" media="screen,print">
+  <script type="text/javascript" src="../Utility.js"></script><title>Object Model</title></head><body>
+  <table width="100%">
+    <tbody><tr>
+      <td nowrap="nowrap">
+        <div id="title">Объектная модель</div>
+      </td>
+      <td align="right" valign="top">
+        <div id="hdrlink" style="font-size: xx-small;">
+          <a href="http://opendcl.com/go?forum" target="_blank">Форум поддержки</a><br>
+          <a href="http://opendcl.com/go?bugreport&amp;new" target="_blank">Сообщить о баге</a>
+        </div>
+      </td>
+    </tr>
+  </tbody></table>
+  <hr>
+  <div id="content">
+    <p>Интерфейс
+AutoLISP используемый OpenDCL использует понятия, заимствованные из
+объектно-ориентированного программирования, но, строго говоря, AutoLISP
+сам по себе не объектно-ориентированный. Тем не менее, вOpenDCL существует объектная 
+модель, и очень полезно понимать эту модель при программировании с
+OpenDCL. Условием использования в OpenDCL вызова методов объектов
+является указание экземпляра объекта в качестве первого аргумента
+функции.</p>
+    <p>Объекты
+OpenDCL представлены в AutoLISP в качестве имен объектов (имя объекта -
+это просто указатель в памяти на экземпляр этого объекта). Когда проект
+OpenDCL загружен, OpenDCL автоматически назначает символ AutoLISP&nbsp;
+для каждой формы, имеющейся в проекте. В то время как форма активна,
+OpenDCL также устанавливает свои символы AutoLISP для каждого элемента
+управления на ней. Свойсвто <a href="../Reference/Property/VarName.htm">VarName</a>
+у форм и элементов управления определяет имя символа AutoLISP,
+используемого для ссылки на объект. Например, показывать форму можно
+вызвав метод <a href="../Reference/Method/Form/Show.htm">
+        Form-Show</a> с указателем этой формы качестве первого аргумента:</p>
+    <pre>(<a href="../Reference/Method/Form/Show.htm">dcl-Form-Show</a> Project1/Form1)</pre>
+    <p>В
+этом примере Project1/Form1 является символом AutoLISP, который
+автоматически устанавливается OpenDCL в качестве указателя на форму
+после загрузки проекта.</p>
+    <h4>Объектная модель OpenDCL <br>
+</h4>
+    <p>Основным типом объекта OpenDCL передаваемого в AutoLISP является <a href="../Reference/DataType/Control.htm">элемент управления</a>.
+Сами формы так же представляют из себя элементы управления, так что
+методы могут применяться и к ним. Другим фундаментальным объектомOpenDCL является  <a href="../Reference/DataType/Project.htm">проект</a>. OpenDCL также предоставляет специализированные объекты, такие как <a href="../Reference/DataType/ImageList.htm">ImageList</a>,
+      <a href="../Reference/DataType/BinFile.htm">BinFile</a>, и <a href="../Reference/DataType/AxObject.htm">
+        AxObject</a>. Каждый из этих типов объектов имеет свои собственные методы, которые могут вызываться в следующем формате:</p>
+    <pre>(dcl-METHODNAME &lt;OBJECT&gt; ARGUMENTS)</pre>
+    <p>Каждый элемент управления содержит список <a href="../Reference/Property/Index.htm">свойств</a>.
+Различные лемент управления
+содержат различные свойства, но все элементы управления одного типа
+содержат одинаковые свойства. Некоторые из них, такие как элементы
+ActiveX, могут содержать дополнительные свойства, которые используются
+отдельно от встроенных свойств OpenDCL. Свойства не представлены как
+самостоятельные объекты; доступ к ним осуществляется через их
+элемент-владелец по имени, используя следующий шаблон (где PROPERTYNAME
+является свойством соотв. имени API):</p>
+    <pre>(dcl-Control-GetPROPERTYNAME &lt;CONTROL&gt;)<br>(dcl-Control-SetPROPERTYNAME &lt;CONTROL&gt; NEWVALUE)</pre>
+    <p>Так же доступ к свойствам можно получить используя методы <a href="../Reference/Method/Control/GetProperty.htm">Control-GetProperty</a> и <a href="../Reference/Method/Control/SetProperty.htm">
+          Control-SetProperty</a>.</p>
+    <h4>Структура проекта OpenDCL <br>
+</h4>
+    <p>Как показывает следующая диаграмма, проект OpenDCL
+содержит формы и рисунки. Формы содержат свойства и элементы
+управления. Элементы управления
+также содержат свойства. Исполняемый модуль OpenDCL разработан так,
+чтобы позволить загрузку неограниченного количества проектов
+одновременно, так что множество независимых OpenDCL приложений могут
+функционировать внутри AutoCAD не мешая друг другу.</p>
+    <p>
+      <img src="ProjectStructure.png" border="0" height="438" width="554"></p>
+    <h4>Указатели элементов управления OpenDCL <br>
+</h4>
+    <p>Элементы управления (и формы) ссылаются в коде AutoLISP с помощью символов AutoLISP, содержащими&nbsp; <a href="../Reference/DataType/Control.htm">указатель элемента управления</a>. Эти символы автоматически создаются в пространстве имен AutoLISP в каждом чертеже AutoCAD пока активен экземпляр формы. Имя символа AutoLISP по умолчанию для этого указателя строится путем объединения имени проекта, имени формы, и имени элемента управления, разделеных косой чертой, как в этом примере:</p>
+    <blockquote>
+      <pre>((<a href="../Reference/Property/Name.htm">dcl-Control-GetName</a> ProjectKey/FormName/ControlName)</pre>
+    </blockquote>
+    <p>Имя символа по умолчанию можно переопределить, установив элементу свойство <a href="../Reference/Property/VarName.htm">VarName</a>, но рекомендуется использование именования по умолчанию, чтобы свести к минимуму риск совпадения имен символов в разных приложениях.</p>
+    <p>На элементы управления и формы также можно ссылаться, указывая их путь в иерархии проекта в виде отдельных строк, как в этом примере:</p>
+    <blockquote>
+      <pre>(<a href="../Reference/Property/Name.htm">dcl-Control-GetName</a> "ProjectKey" "FormName" "ControlName")</pre>
+    </blockquote>
+    <p>Метод с символами Lisp работает только когда активна форма содержащая данный элемент управления, а метод строк может использоваться для обозначения любого загруженного элемента управления даже тогда, когда его форма не активна. Метод отдельных строк также полезен при выполнении той же операции для целого списка элементов управления, как в этом примере:</p>
+    <blockquote>
+      <pre>(foreach control '("Control1" "Control2" "Control3") (<br><a href="../Reference/Property/Enabled.htm">dcl-Control-SetEnabled</a> "ProjectKey" "FormName" control NIL))</pre>
+    </blockquote>
+  </div>
+  <hr>
+<div id="footer">
+    <p>Авторские права © 2026 <a href="http://www.opendcl.com/" target="_blank">OpenDCL Consortium</a>. Все права защищены.</p>
+    <p>OpenDCL является товарным знаком <a href="http://www.opendcl.com/" target="_blank">OpenDCL Consortium</a>.</p>
+    <p>AutoCAD и AutoLISP являются зарегистрированными торговыми марками компании <a href="http://www.autodesk.com/" target="_blank">Autodesk, Inc.</a></p>
+    <p>Windows является зарегистрированной торговой маркой компании <a href="http://www.microsoft.com/" target="_blank">Microsoft Corporation</a> в Соединенных Штатах и других странах.</p>
+  </div>
+</body>
+</html>

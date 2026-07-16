@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>OpenDCL Help Files</title>
+  <link rel="icon" href="../assets/odcl_logo_64x64.png">
+  <script type="text/javascript">
+// JavaScript utilities used by the OpenDCL documentation files
+// Copyright 2008–2026 OpenDCL Consortium
+
+if (!document.getElementById)
+  document.getElementById = function (id) { if (document.all) return document.all[id]; };
+
+function UrlParams(querystring) {
+  var qs = null;
+  if (querystring.length > 1) qs = querystring.substr(1);
+  this.params = [];
+  if (qs) {
+    var qsplit = qs.split("&");
+    for (var i = 0; i < qsplit.length; i++) this.params[i] = qsplit[i];
+  }
+  this.getValue = function (param) {
+    for (var j = 0; j < this.params.length; j++) {
+      var psplit = this.params[j].split("=");
+      if (psplit[0] == param) return psplit[1];
+    }
+    return false;
+  };
+  this.setValue = function (param, val) {
+    for (var j = 0; j < this.params.length; j++) {
+      if (this.params[j].split("=")[0] == param) break;
+    }
+    if (val) this.params[j] = param + "=" + val;
+    else this.params.splice(j, 1);
+    return true;
+  };
+  this.getQueryString = function () {
+    var qs = "";
+    for (var j = 0; j < this.params.length; j++) {
+      if (qs.length > 1) qs += "&";
+      qs += this.params[j];
+    }
+    return qs;
+  };
+}
+
+function getParamValue(param) {
+  var page = new UrlParams(window.location.search);
+  var val = page.getValue(param);
+  if (val) return unescape(val);
+  return null;
+}
+
+function getElementSize(element) {
+  var res = { x: 0, y: 0 };
+  if (element) {
+    if (element.offsetWidth) res.x = element.offsetWidth;
+    else res.x = element.style.pixelWidth;
+    if (element.offsetHeight) res.y = element.offsetHeight;
+    else res.y = element.style.pixelHeight;
+  }
+  return res;
+}
+
+function getClientLanguage() {
+  var nav = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+  if (nav.indexOf("de") === 0) return "DEU";
+  if (nav.indexOf("ru") === 0) return "RUS";
+  return "ENU";
+}
+
+var language = getParamValue("lang");
+if (!language) language = getClientLanguage();
+if (language !== "ENU" && language !== "DEU" && language !== "RUS") language = "ENU";
+var page = getParamValue("page");
+if (!page) page = "Index.htm";
+var hash = getParamValue("hash");
+if (hash) hash = "#" + hash; else hash = "";
+
+var onTopicChanged = null;
+
+function onFrameLoaded() {
+  try {
+    if (typeof hdr !== "undefined" && hdr.window) {
+      if (this.hdrUrl != hdr.window.location.href) {
+        var hdrFrameSet = document.getElementById("hdr");
+        if (hdrFrameSet && hdrFrameSet.rows == "*") this.hdrUrl = null;
+        else if (hdr.window.document) {
+          var tables = hdr.window.document.getElementsByTagName("table");
+          if (tables && tables[0]) {
+            var hdrSize = getElementSize(tables[0]);
+            if (hdrSize && hdrFrameSet) {
+              var row0 = parseInt(String(hdrFrameSet.rows).split(",")[0], 10) || 0;
+              if (row0 < hdrSize.y + 5) hdrFrameSet.rows = hdrSize.y + 5 + ",*";
+              this.hdrUrl = hdr.window.location.href;
+            }
+          }
+        }
+      }
+      if (main.window && main.window.document) document.title = main.window.document.title;
+      var permalink = null;
+      if (hdr.window.document.getElementById)
+        permalink = hdr.window.document.getElementById("permalink");
+      else if (hdr.window.document.all) permalink = hdr.window.document.all["permalink"];
+      if (permalink && main.window.location.pathname) {
+        var m = main.window.location.pathname.match(/HelpFiles\/...\/([^\?]*)/);
+        if (m) {
+          var permurl = "index.html?page=" + m[1];
+          permalink.innerHTML = '<a href="' + permurl + '">&gt;&gt;</a>';
+        }
+      }
+    }
+  } catch (e) { /* cross-frame edge cases */ }
+  if (onTopicChanged && main.window) onTopicChanged(main.window);
+  if (main) main.onload = onFrameLoaded;
+}
+
+function changeLang(newlang) {
+  var lang = "ENU";
+  var pageName = "Index.htm";
+  var url = main.window.location;
+  var path = url.pathname.split("/HelpFiles/")[1];
+  if (typeof path != "undefined") {
+    lang = path.split("/")[0];
+    pageName = path.substr(lang.length + 1);
+  }
+  if (newlang == "ENU" || newlang == "DEU" || newlang == "RUS") {
+    var base = url.pathname.split("/HelpFiles/")[0] + "/HelpFiles/" + newlang + "/" + pageName;
+    var pageParams = new UrlParams(window.location.search);
+    pageParams.setValue("page", null);
+    pageParams.setValue("lang", null);
+    pageParams.setValue("hash", null);
+    var qs = pageParams.getQueryString();
+    var newurl = base;
+    if (qs) newurl += "?" + qs;
+    if (url.hash) newurl += url.hash;
+    if (parent.window.location != newurl) parent.window.location = newurl;
+    return;
+  }
+  var slang = "en";
+  if (lang == "DEU") slang = "de";
+  else if (lang == "RUS") slang = "ru";
+  var newurl =
+    "https://www.google.com/translate_c?u=" +
+    escape(url.href) +
+    "&sl=" + slang + "&tl=" + newlang + "&hl=" + newlang;
+  if (url.hash) newurl += url.hash;
+  parent.window.location = newurl;
+}
+
+// Build frameset once DOM-ready substitute: document.write frameset
+document.write(
+  '<frameset id="hdr" rows="40,*" cols="*">' +
+    '<frame id="hdrframe" src="' + language + '/Top.html" name="hdr" scrolling="no" noresize="noresize" frameborder="0" border="0">' +
+    '<frameset id="content" cols="220,*" framespacing="6" onload="javascript:onFrameLoaded();">' +
+      '<frame id="nav" src="' + language + '/TOC.html" name="nav">' +
+      '<frame id="main" frameborder="0" border="0" src="' + language + "/" + page + hash + '" name="main" onload="javascript:onFrameLoaded();">' +
+    "</frameset>" +
+  "</frameset>"
+);
+  </script>
+</head>
+<body>
+  <p>
+    OpenDCL help requires frames.
+    <a id="fallback" href="ENU/Index.htm">Open English help without frames</a>.
+  </p>
+  <script>
+    document.getElementById("fallback").href = language + "/" + page;
+  </script>
+</body>
+</html>

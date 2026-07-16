@@ -1,0 +1,185 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="de">
+<link rel="StyleSheet" href="../../WinHelp.css" type="text/css" media="screen,print">
+<script type="text/javascript" src="../../Utility.js"></script>
+<title>Farbe</title>
+</head>
+<body>
+  <table width="100%">
+    <tr>
+      <td nowrap>
+        <div id="title">Farbe</div>
+      </td>
+      <td align="right" valign="top">
+        <div id="hdrlink" style="font-size:xx-small;">
+          <a href="http://opendcl.com/go?forum&de&post" target="_blank">Anmerkung zur deutschen Übersetzung melden</a><br />
+          <a href="http://opendcl.com/go?forum&de" target="_blank">Deutschsprachiges Forum</a>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <hr />
+  <div id="content">
+    <p>Farbwerte stellen die AutoCAD-ACI-Farben im Bereich 1 bis 256, inklusive der Farbe 256 f&uuml;r VonLayer. Windows-Systemfarben werden als negative Werte verwaltet, wie Sie der nachfolgenden Tabelle entnehmen k&ouml;nnen. Ist der Farbwert au&szlig;erhalb dieser Bereiche, wird er als bitcodierte RGB-Farbe interpretiert. </p>
+    <p>Eine Farbe kann auch als Liste von 3 Ganzzahlen f&uuml;r eine RGB-Farbe &uuml;bergeben werden, wobei die erste Rot, die zweite Gr&uuml;n und der Dritte Blau abbildet und jeder der drei Werte im Bereich 0 bis 255 liegt. </p>
+    <p>Um eine AutoCAD-Farbe in eine <a href="OLEColor.htm">OLEColor</a> zu wandeln, um sie beispielsweise in Verbindung mit einem <a href="AxObject.htm">ActiveX Objekt</a> zu verwenden, nutzen Sie die <a href="../Function/GetOLEColorValue.htm">GetOLEColorValue</a> Funktion . </p>
+    <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111">
+          <tr>
+            <th width="68" nowrap>Farbwert</th>
+            <th width="431" nowrap>Bedeutung</th>
+          </tr>
+          <tr>
+            <td>-24</td>
+            <td>Transparent (durchsichtige Hintergrundfarbe)</td>
+          </tr>
+          <tr>
+            <td>-23</td>
+            <td>AutoCAD Layout Hintergrund</td>
+          </tr>
+          <tr>
+            <td>-22</td>
+            <td>AutoCAD Modellbereich Hintergrund</td>
+          </tr>
+          <tr>
+            <td>-21</td>
+            <td>Windows Hervorgehobene Schaltfl&auml;che </td>
+          </tr>
+          <tr>
+            <td>-20</td>
+            <td>Windows Inaktiver Titelzeilentext </td>
+          </tr>
+          <tr>
+            <td>-19</td>
+            <td>Windows Schaltfl&auml;chentext </td>
+          </tr>
+          <tr>
+            <td>-18</td>
+            <td>Windows Ausgegrauter Text </td>
+          </tr>
+          <tr>
+            <td>-17</td>
+            <td>Windows Schatten </td>
+          </tr>
+          <tr>
+            <td>-16</td>
+            <td>Windows 3D-Objekte </td>
+          </tr>
+          <tr>
+            <td>-15</td>
+            <td>Windows Text ausgew&auml;hlter Elemente </td>
+          </tr>
+          <tr>
+            <td>-14</td>
+            <td>Windows Ausgew&auml;hlte Elemente </td>
+          </tr>
+          <tr>
+            <td>-13</td>
+            <td>Windows Hintergrund der Anwendungen </td>
+          </tr>
+          <tr>
+            <td>-12</td>
+            <td>Windows Rahmen des inaktiven Fensters </td>
+          </tr>
+          <tr>
+            <td>-11</td>
+            <td>Windows Rahmen des aktiven Fensters </td>
+          </tr>
+          <tr>
+            <td>-10</td>
+            <td>Windows Aktiver Titelzeilentext </td>
+          </tr>
+          <tr>
+            <td>-9</td>
+            <td>Windows Dialogfeld </td>
+          </tr>
+          <tr>
+            <td>-8</td>
+            <td>Windows Men&uuml;titel </td>
+          </tr>
+          <tr>
+            <td>-7</td>
+            <td>Windows Fensterrahmenf&uuml;llung </td>
+          </tr>
+          <tr>
+            <td>-6</td>
+            <td>Windows Fenster </td>
+          </tr>
+          <tr>
+            <td>-5</td>
+            <td>Windows Men&uuml;</td>
+          </tr>
+          <tr>
+            <td>-4</td>
+            <td>Windows Titelzeile des inaktiven Fensters </td>
+          </tr>
+          <tr>
+            <td>-3</td>
+            <td>Windows Titelzeile des aktiven Fensters </td>
+          </tr>
+          <tr>
+            <td>-2</td>
+            <td>Windows Desktop </td>
+          </tr>
+          <tr>
+            <td>-1</td>
+            <td>Windows Scrollleiste </td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>Schwarz</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Rot</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Gelb</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Gr&uuml;n</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Cyan</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Blau</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Magenta</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Wei&szlig;</td>
+          </tr>
+          <tr>
+            <td>8 - 255</td>
+            <td>AutoCAD ACI-Farben</td>
+          </tr>
+          <tr>
+            <td>256</td>
+            <td>AutoCAD VonLayer-Farbe (z.B. Farbe des aktuellen Layers)</td>
+          </tr>
+          <tr>
+            <td>&gt; 256</td>
+            <td>Farbe wird als RGB-Farbe interpretiert  (siehe<a href="OLEColor.htm">
+            OLEColor</a>)</td>
+          </tr>
+        </table>
+  </div>
+  <hr />
+  <div id="footer">
+    <p>Copyright © 2026 <a href="http://www.opendcl.com" target="_blank">OpenDCL Consortium</a>.
+    Alle Rechte vorbehalten.</p>
+    <p>OpenDCL ist ein Markenzeichen des <a href="http://www.opendcl.com" target="_blank">OpenDCL Consortium</a>.</p>
+    <p>AutoCAD und AutoLISP sind eingetragene Markenzeichen der <a href="http://www.autodesk.com" target="_blank">Autodesk, Inc.</a></p>
+    <p>Windows ist ein eingetragenes Markenzeichen der <a href="http://www.microsoft.com" target="_blank">Microsoft Corporation</a> in den USA und anderen Staaten.</p>
+  </div>
+</body>
+</html>

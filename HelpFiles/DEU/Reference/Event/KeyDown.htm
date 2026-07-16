@@ -1,0 +1,99 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="de">
+<link rel="StyleSheet" href="../../WinHelp.css" type="text/css" media="screen,print">
+<script type="text/javascript" src="../../Utility.js"></script>
+<title>KeyDown</title>
+</head>
+<body>
+  <table width="100%">
+    <tr>
+      <td nowrap>
+        <div id="title">
+                  <img border="0" src="../images/Event.png" width="16" height="16"> 
+                  KeyDown</div>
+      </td>
+      <td align="right" valign="top">
+        <div id="hdrlink" style="font-size:xx-small;">
+          <a href="http://opendcl.com/go?forum&de&post" target="_blank">Anmerkung zur deutschen Übersetzung melden</a><br />
+          <a href="http://opendcl.com/go?forum&de" target="_blank">Deutschsprachiges Forum</a>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <hr />
+<div id="content">
+        <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111">
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Funktionsname</th>
+            <td bgcolor="#CCFF99">c:<i>&lt;CONTROL-NAME&gt;</i>#OnKeyDown</td>
+          </tr>
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Syntax
+&nbsp;<button title="In die Zwischenablage kopieren" onclick="javascript:copyclip(syntax);" style="width: 22px; height: 20px"><img src="../images/Clipboard.png" width="15" height="13" /></button></th>
+<td bgcolor="#CCFF99"><code id="syntax">(<font color="brown">defun</font> c:<i>&lt;CONTROL-NAME&gt;</i>#OnKeyDown 
+            (<font color="red">strCharacter [als <a href="../DataType/String.htm">String</a>] 
+            intRepeatCount [als <a href="../DataType/Integer.htm">Integer</a>] intFlags [als <a href="../DataType/Bitflag.htm">Bitflag</a>] </font>/)<br />
+            )</code></td>
+          </tr>
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Rückgabewert</th>
+            <td bgcolor="#CCFF99">nicht verwendet</td>
+          </tr>
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Ausgelöst durch</th>
+            <td bgcolor="#CCFF99"><a href="../Control/BlockList.htm">Blockliste</a>, <a href="../Control/Grid.htm">Datenblatt</a>,
+            <a href="../Control/ListView.htm">Erweiterte Liste</a>,
+            <a href="../Control/PictureBox.htm">Bild</a>,
+            <a href="../Control/SlideView.htm">Dia</a>,
+            <a href="../Control/TextBox.htm">Textfeld</a>,
+            <a href="../Control/Tree.htm">Baumstruktur</a></td>
+          </tr>
+        </table>
+    <p>Wird ausgel&ouml;st, wenn der Anwender eine Taste gedr&uuml;ckt hat. Bitte beachten Sie, dass in nicht-modalen Dialogen das Event u.U. nicht ausgel&ouml;st wird, wenn die Dialogeigenschaft KeepFocus auf Ja gestellt ist. Mit intRepeatCount wird die Anzahl zur&uuml;ckgegeben, wenn die Taste gedr&uuml;ckt gehalten wird. Das intFlags Argument ist ein Bitcode, der den Status der Tastatur wiedergibt und sich aus folgenden Werten zusammensetzt:</p>
+        <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111">
+          <tr>
+            <th nowrap>Bits</th>
+            <th nowrap>Bedeutung</th>
+          </tr>
+          <tr>
+            <td>0 - 7</td>
+            <td>Scan-Code (OEM-abh&auml;ngiger Wert)</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Erweiterte Taste  (Funktionstaste, Taste auf der numerischen Tastatur, etc.)</td>
+          </tr>
+          <tr>
+            <td>9 - 10</td>
+            <td> Nicht verwendet </td>
+          </tr>
+          <tr>
+            <td>11 - 12</td>
+            <td> Intern von Windows verwendet </td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td> [Alt]-Taste ist gedr&uuml;ckt </td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td> Wird gesetzt, wenn die Taste gedr&uuml;ckt wurde bevor das Event ausgel&ouml;st wurde</td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td> Wird gesetzt, wenn die Taste losgelassen wurde</td>
+          </tr>
+        </table>
+</div>
+<hr />
+  <div id="footer">
+    <p>Copyright © 2026 <a href="http://www.opendcl.com" target="_blank">OpenDCL Consortium</a>.
+    Alle Rechte vorbehalten.</p>
+    <p>OpenDCL ist ein Markenzeichen des <a href="http://www.opendcl.com" target="_blank">OpenDCL Consortium</a>.</p>
+    <p>AutoCAD und AutoLISP sind eingetragene Markenzeichen der <a href="http://www.autodesk.com" target="_blank">Autodesk, Inc.</a></p>
+    <p>Windows ist ein eingetragenes Markenzeichen der <a href="http://www.microsoft.com" target="_blank">Microsoft Corporation</a> in den USA und anderen Staaten.</p>
+  </div>
+</body>
+</html>

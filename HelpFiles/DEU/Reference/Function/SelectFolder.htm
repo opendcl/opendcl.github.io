@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="de">
+<link rel="StyleSheet" href="../../WinHelp.css" type="text/css" media="screen,print">
+<script type="text/javascript" src="../../Utility.js"></script>
+<title>SelectFolder</title>
+</head>
+<body>
+  <table width="100%">
+    <tr>
+      <td nowrap>
+        <div id="title">
+                  <img border="0" src="../images/Function.png" width="16" height="16"> 
+                  SelectFolder</div>
+      </td>
+      <td align="right" valign="top">
+        <div id="hdrlink" style="font-size:xx-small;">
+          <a href="http://opendcl.com/go?forum&de&post" target="_blank">Anmerkung zur deutschen Übersetzung melden</a><br />
+          <a href="http://opendcl.com/go?forum&de" target="_blank">Deutschsprachiges Forum</a>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <hr />
+  <div id="content">
+        <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111">
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Funktionsname</th>
+            <td bgcolor="#CCFF99">dcl-SelectFolder</td>
+          </tr>
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Syntax
+&nbsp;<button title="In die Zwischenablage kopieren" onclick="javascript:copyclip(syntax);" style="width: 22px; height: 20px"><img src="../images/Clipboard.png" width="15" height="13" /></button></th>
+<td bgcolor="#CCFF99"><code id="syntax">(dcl-SelectFolder
+<font color="#FF0000">strTitle [als
+<a href="../DataType/String.htm">String</a>]</font>
+            <font color="#FF0000">{strDefaultDirectory [als
+<a href="../DataType/String.htm">String</a>]}</font>
+            <font color="#FF0000">{strRootFolder [als
+<a href="../DataType/String.htm">String</a>]}</font>
+            <font color="#FF0000">{intFlags [als <a href="../DataType/BitFlag.htm">
+BitFlag</a>]}</font>)</code></td>
+          </tr>
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Rückgabewert</th>
+            <td bgcolor="#CCFF99"><a href="../DataType/String.htm">String</a></td>
+          </tr>
+      </table>
+    <p>Diese Funktion fordert den Anwender auf, ein Verzeichnis zu w&auml;hlen und gibt anschlie&szlig;end das gew&auml;hlte Verzeichnis zur&uuml;ck oder NIL, wenn der Dialog abgebrochen wird. Wird kein Wert f&uuml;r intFlags angegeben wird vorgabem&auml;&szlig;ig 1 verwendet.</p>
+      <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111">
+          <tr>
+            <th nowrap>Bitwert</th>
+            <th nowrap>Bit</th>
+            <th nowrap>Bedeutung</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>0</td>
+            <td>L&auml;sst nur Dateisystemverzeichnisse zu. W&auml;hlt der Anwender ein Verzeichnis, dass nicht zum Dateisystem geh&ouml;rt, wird die Schaltfl&auml;che OK deaktiviert.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>1</td>
+            <td>F&uuml;gt keine Netzlaufwerke unter der obersten Ebene der Baumstruktur ein.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>2</td>
+            <td>F&uuml;gt einen Statusbereich in der Dialogbox ein. Die Callback-Funktion kann nun Meldungstext an die Dialogbox setzen und so einen Statustext setzen. Das wird nicht unterst&uuml;tzt, wenn das Bit 6 gesetzt ist.</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>3</td>
+            <td>Gibt nur verwandte Ordner aus. Ein verwandter Ordner ist ein Ordner unterhalb des Stammordners des Namensraums. W&auml;hlt der Anwender einen verwandten Ordner, der nicht Bestandteil des Dateisystems ist, wird die Schaltfl&auml;che OK deaktiviert. Nicht ausgew&auml;hlt werden k&ouml;nnen beispielsweise &quot;Netzwerkumgebung&quot;, &quot;Meine Webseiten&quot; usw.). </td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>4</td>
+            <td>F&uuml;gt ein Textfeld in den Auswahldialog ein, damit der Anwender den Namen eines Eintrags w&auml;hlen kann.</td>
+          </tr>
+          <tr>
+            <td>32</td>
+            <td>5</td>
+            <td>Nicht verwendet. </td>
+          </tr>
+          <tr>
+            <td>64</td>
+            <td>6</td>
+            <td>Verwendet eine neue Schnittstelle, mit der es m&ouml;glich ist, den Dialog zu vergr&ouml;&szlig;ern, Ordner per Drag&amp;Drop zu verschieben, kopieren, oder neu zu sortieren. Au&szlig;erdem k&ouml;nnen neue Ordner erstellt, bestehende umbenannt oder Verkn&uuml;pfungen darauf erstellt werden.</td>
+          </tr>
+          <tr>
+            <td>128</td>
+            <td>7</td>
+            <td>Der Auswahldialog unterst&uuml;tzt die Anzeige von URL's, allerdings m&uuml;ssen die Bits 4, 6 und 13 ebenfalls gesetzt sein, andernfalls werden URL's unterdr&uuml;ckt. Und selbst wenn diese gesetzt sind, werden sie nur angezeigt, wenn der Ordner, in dem sich das anzuzeigende Element befindet, URL's unterst&uuml;tzt.</td>
+          </tr>
+          <tr>
+            <td>256</td>
+            <td>8</td>
+            <td>In Kombination mit dem Bit 6 wird an der Stelle des Textfelds ein Hinweis zur Anwendung ausgegeben. Das Bit 4 unterdr&uuml;ckt diese Ausgabe.</td>
+          </tr>
+          <tr>
+            <td>512</td>
+            <td>9</td>
+            <td>F&uuml;gt die Schaltfl&auml;che zum Erzeugen neuer Ordner nicht in die Dialogbox ein.</td>
+          </tr>
+          <tr>
+            <td>1024</td>
+            <td>10</td>
+            <td>Ist das ausgew&auml;hlte Element eine Verkn&uuml;pfung, dann soll statt dem Ziel der Name der Verkn&uuml;pfung zur&uuml;ckgegeben werden.</td>
+          </tr>
+          <tr>
+            <td>2048</td>
+            <td>11</td>
+            <td>Gibt ausschlie&szlig;lich Computernamen zur&uuml;ck. Wird stattdessen irgendwas anderes ausgew&auml;hlt, bleibt die Schaltfl&auml;che OK deaktiviert.</td>
+          </tr>
+          <tr>
+            <td>4096</td>
+            <td>12</td>
+            <td>L&auml;sst ausschlie&szlig;lich die Auswahl von Druckern und Plottern zu. Wird stattdessen irgendwas anderes ausgew&auml;hlt, bleibt die Schaltfl&auml;che OK deaktiviert.</td>
+          </tr>
+          <tr>
+            <td>8192</td>
+            <td>13</td>
+            <td>Die Dialogbox zeigt sowohl Ordner als auch Dateien. </td>
+          </tr>
+          <tr>
+            <td>16384</td>
+            <td>14</td>
+            <td>Der Auswahldialog kann freigegebene Ressourcen auf Remotsystemen anzeigen. Das ist f&uuml;r Applicationen sinnvoll, die Freigaben auf andere Rechner publuzieren wollen. Das Bit 6 muss auch gesetzt sein.</td>
+          </tr>
+        </table>
+  </div>
+  <hr />
+  <div id="footer">
+    <p>Copyright © 2026 <a href="http://www.opendcl.com" target="_blank">OpenDCL Consortium</a>.
+    Alle Rechte vorbehalten.</p>
+    <p>OpenDCL ist ein Markenzeichen des <a href="http://www.opendcl.com" target="_blank">OpenDCL Consortium</a>.</p>
+    <p>AutoCAD und AutoLISP sind eingetragene Markenzeichen der <a href="http://www.autodesk.com" target="_blank">Autodesk, Inc.</a></p>
+    <p>Windows ist ein eingetragenes Markenzeichen der <a href="http://www.microsoft.com" target="_blank">Microsoft Corporation</a> in den USA und anderen Staaten.</p>
+  </div>
+</body>
+</html>

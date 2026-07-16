@@ -1,0 +1,106 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="de">
+<link rel="StyleSheet" href="../../../WinHelp.css" type="text/css" media="screen,print">
+<script type="text/javascript" src="../../../Utility.js"></script>
+<title>BlockView-DisplayDwg (View)</title>
+</head>
+<body>
+  <table width="100%">
+    <tr>
+      <td nowrap>
+        <div id="title">
+                  <img border="0" src="../../images/Method.png" width="16" height="16"> 
+                  BlockView-DisplayDwg (View)</div>
+      </td>
+      <td align="right" valign="top">
+        <div id="hdrlink" style="font-size:xx-small;">
+          <a href="http://opendcl.com/go?forum&de&post" target="_blank">Anmerkung zur deutschen Übersetzung melden</a><br />
+          <a href="http://opendcl.com/go?forum&de" target="_blank">Deutschsprachiges Forum</a>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <hr />
+<div id="content">
+        <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111">
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Funktionsname</th>
+            <td bgcolor="#CCFF99">dcl-BlockView-DisplayDwg</td>
+          </tr>
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Syntax
+&nbsp;<button title="In die Zwischenablage kopieren" onclick="javascript:copyclip(syntax);" style="width: 22px; height: 20px"><img src="../../images/Clipboard.png" width="15" height="13" /></button></th>
+<td bgcolor="#CCFF99"><code id="syntax">(dcl-BlockView-DisplayDwg <i>
+            <a href="../../DataType/Control.htm">&lt;CONTROL&gt;</a></i>
+            <font color="#FF0000">strDwgFileName [als <a href="../../DataType/String.htm">String</a>] {intView [als <a href="../../DataType/Integer.htm">Integer</a>]} {reaZoomFactor [als <a href="../../DataType/Float.htm">Float</a>]}</font>)</code></td>
+          </tr>
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Rückgabewert</th>
+            <td bgcolor="#CCFF99"><a href="../../DataType/Boolean.htm">Boolean</a> (T, wenn erfolgreich, ansonsten NIL)</td>
+          </tr>
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Anwendbar auf</th>
+            <td bgcolor="#CCFF99"><a href="../../Control/BlockView.htm">Block 
+            View</a></td>
+          </tr>
+        </table>
+    <p>Diese Methode stellt eine externe Zeichnungsdatei dar. Das Argument intView bestimmt die Blickrichtung, das Argument reaZoomFactor den Zoomfaktor f&uuml;r die Ansicht. Gr&ouml;&szlig;ere Werte zeigen den Block gr&ouml;&szlig;er an als kleinere Werte. Der Faktor 1.0 bestimmt, dass der Block in der Ansicht auf die Zeichnungsgrenzen gezoomt wird. Das ist gleichzeitig die Vorgabe, wenn reaZoomFactor weggelassen wird. </p>
+      <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111">
+          <tr>
+            <th nowrap>Wert</th>
+            <th nowrap>Vordefinierte Ansicht </th>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>Oben </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td> Unten</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Rechts</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Links</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Vorn</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Hinten</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>ISO SW </td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>ISO SO</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>ISO NW </td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>ISO NO </td>
+          </tr>
+        </table>
+  </div>
+  <hr />
+  <div id="footer">
+    <p>Copyright © 2026 <a href="http://www.opendcl.com" target="_blank">OpenDCL Consortium</a>.
+    Alle Rechte vorbehalten.</p>
+    <p>OpenDCL ist ein Markenzeichen des <a href="http://www.opendcl.com" target="_blank">OpenDCL Consortium</a>.</p>
+    <p>AutoCAD und AutoLISP sind eingetragene Markenzeichen der <a href="http://www.autodesk.com" target="_blank">Autodesk, Inc.</a></p>
+    <p>Windows ist ein eingetragenes Markenzeichen der <a href="http://www.microsoft.com" target="_blank">Microsoft Corporation</a> in den USA und anderen Staaten.</p>
+  </div>
+</body>
+</html>

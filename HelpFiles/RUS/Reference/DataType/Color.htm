@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="en-us">
+<link rel="stylesheet" href="../../WinHelp.css" type="text/css" media="screen,print">
+<script type="text/javascript" src="../../Utility.js"></script><title>Color</title></head><body>
+  <table width="100%">
+    <tbody><tr>
+      <td nowrap="nowrap">
+        <div id="title">Color</div>
+      </td>
+      <td align="right" valign="top">
+      <div id="hdrlink" style="font-size: xx-small;">
+          <a href="http://opendcl.com/go?forum" target="_blank">Форум поддержки</a><br>
+          <a href="http://opendcl.com/go?bugreport&amp;new" target="_blank">Сообщить о баге</a>
+        </div>
+
+</td></tr></tbody></table><hr>
+  <div id="content">
+    <p>Тип Цвет представляет собой цвет AutoCAD в диапазоне от 1 до 256, в том числе "логический" цвет ПОСЛОЮ 256.
+В OpenDCL дополнительные логические цвета могут быть определены
+отрицательными значениями, как показано в следующей таблице. Если
+значение цвета находится вне диапазона логических и AutoCAD цветов, то
+оно интерпретируется как битовое значение цвета RGB.</p>
+    <p>Цвет
+также может быть представлен как список из трех целых чисел в диапазоне
+0 - 255, представляющих красный, зеленый и синий компоненты цвета в
+виде (Красный Зеленый Синий).</p>
+    <p>Для преобразования цвета AutoCAD в <a href="OLEColor.htm">OLEColor</a> для использования с объектом ActiveX , использовать функцию
+        <a href="../Function/GetOLEColor%D0%97%D0%BD%D0%B0%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.htm">GetOLEColorValue</a> .</p>
+      <table style="border-collapse: collapse;" border="1" bordercolor="#111111" cellpadding="3" cellspacing="0">
+          <tbody><tr>
+            <th nowrap="nowrap">Номер цвета<br>
+</th>
+            <th nowrap="nowrap">Описание</th>
+          </tr>
+          <tr>
+            <td>-24</td>
+            <td>Прозрачный (цвет фона)</td>
+          </tr>
+          <tr>
+            <td>-23</td>
+            <td>AutoCAD цвет фона листа<br>
+</td>
+          </tr>
+          <tr>
+            <td>-22</td>
+            <td>AutoCAD цвет фона пространства модели <br>
+</td>
+          </tr>
+          <tr>
+            <td>-21</td>
+            <td>Windows button highlight color</td>
+          </tr>
+          <tr>
+            <td>-20</td>
+            <td>Windows inactive caption color</td>
+          </tr>
+          <tr>
+            <td>-19</td>
+            <td>Windows button text color</td>
+          </tr>
+          <tr>
+            <td>-18</td>
+            <td>Windows grayed text color</td>
+          </tr>
+          <tr>
+            <td>-17</td>
+            <td>Windows button shadow color</td>
+          </tr>
+          <tr>
+            <td>-16</td>
+            <td>Windows button face color</td>
+          </tr>
+          <tr>
+            <td>-15</td>
+            <td>Windows highlighted text color</td>
+          </tr>
+          <tr>
+            <td>-14</td>
+            <td>Windows highlight color</td>
+          </tr>
+          <tr>
+            <td>-13</td>
+            <td>Windows application workspace color</td>
+          </tr>
+          <tr>
+            <td>-12</td>
+            <td>Windows inactive border color</td>
+          </tr>
+          <tr>
+            <td>-11</td>
+            <td>Windows active border color</td>
+          </tr>
+          <tr>
+            <td>-10</td>
+            <td>Windows caption text color</td>
+          </tr>
+          <tr>
+            <td>-9</td>
+            <td>Windows window text color</td>
+          </tr>
+          <tr>
+            <td>-8</td>
+            <td>Windows menu text color</td>
+          </tr>
+          <tr>
+            <td>-7</td>
+            <td>Windows window frame color</td>
+          </tr>
+          <tr>
+            <td>-6</td>
+            <td>Windows default window color</td>
+          </tr>
+          <tr>
+            <td>-5</td>
+            <td>Windows menu color</td>
+          </tr>
+          <tr>
+            <td>-4</td>
+            <td>Windows inactive caption color</td>
+          </tr>
+          <tr>
+            <td>-3</td>
+            <td>Windows active caption color</td>
+          </tr>
+          <tr>
+            <td>-2</td>
+            <td>Windows desktop color</td>
+          </tr>
+          <tr>
+            <td>-1</td>
+            <td>Windows scroll bar color</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>Черный</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Красный</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Желтый</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Зеленый</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Голубой</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Синий</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Фиолетовый<br>
+</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Белый</td>
+          </tr>
+          <tr>
+            <td>8 - 255</td>
+            <td>AutoCAD color table color</td>
+          </tr>
+          <tr>
+            <td>256</td>
+            <td>AutoCAD Послою (то есть цвет по умолчанию текущего слоя)</td>
+          </tr>
+          <tr>
+            <td>&gt; 256</td>
+            <td>Цвет интерпретируется как RGB (смотри тип&nbsp;<a href="OLEColor.htm">
+            OLEColor</a>)</td>
+          </tr>
+        </tbody></table>
+  </div>
+  <hr>
+<div id="footer">
+    <p>Авторские права © 2026 <a href="http://www.opendcl.com/" target="_blank">OpenDCL Consortium</a>. Все права защищены.</p><p>OpenDCL является товарным знаком <a href="http://www.opendcl.com/" target="_blank">OpenDCL Consortium</a>.</p>
+    <p>AutoCAD и AutoLISP являются зарегистрированными торговыми марками компании <a href="http://www.autodesk.com/" target="_blank">Autodesk, Inc.</a></p>
+    <p>Windows является зарегистрированной торговой маркой компании <a href="http://www.microsoft.com/" target="_blank">Microsoft Corporation</a> в Соединенных Штатах и других странах.</p>
+</div>
+</body></html>

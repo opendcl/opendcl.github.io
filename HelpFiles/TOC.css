@@ -1,0 +1,38 @@
+body
+{
+	font-family: Arial, Sans-Serif;
+	font-size: x-small;
+}
+
+a
+{
+	color: #000066;
+	text-decoration: none;
+}
+
+a.expander
+{
+	font-size: larger;
+}
+
+ul
+{
+	list-style: none;
+	margin-left: 0;
+	padding: 0;
+}
+
+li ul
+{
+	margin-left: 10pt;
+	margin-top: 4pt;
+	margin-bottom: 10pt;
+}
+
+li
+{
+	white-space: nowrap;
+	margin-left: 6pt;
+	margin-bottom: 2pt;
+	padding: 0;
+}

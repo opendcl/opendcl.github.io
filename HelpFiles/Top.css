@@ -1,0 +1,26 @@
+@import url(http://www.google.com/cse/api/branding.css);
+
+body
+{
+	font-family: Arial, Sans-Serif;
+	font-size: small;
+}
+
+a
+{
+	color: #000066;
+	text-decoration: none;
+}
+
+table
+{
+	padding: 0px;
+	border-style: none;
+	border-spacing: 0px;
+	width: 100%;
+}
+
+img
+{
+	border-style: none;
+}

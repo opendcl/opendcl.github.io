@@ -1,0 +1,248 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="en-us">
+<link rel="stylesheet" href="../../../WinHelp.css" type="text/css" media="screen,print">
+<script type="text/javascript" src="../../../Utility.js"></script>
+<title>Grid-SetCellStyle</title>
+</head>
+<body>
+  <table width="100%">
+    <tr>
+      <td nowrap>
+        <div id="title">
+                  <img border="0" src="../../images/Method.png" width="16" height="16"> 
+                  Grid-SetCellStyle</div>
+      </td>
+      <td align="right" valign="top">
+        <div id="hdrlink" style="font-size:xx-small;">
+          <a href="http://opendcl.com/go?forum" target="_blank">Форум поддержки</a><br />
+          <a href="http://opendcl.com/go?bugreport&new" target="_blank">Сообщить о баге</a>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <hr />
+  <div id="content">
+        <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111">
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Имя функции</th>
+            <td bgcolor="#CCFF99">dcl-Grid-SetCellStyle</td>
+          </tr>
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Синтаксис
+&nbsp;<button title="Copy To Clipboard" onclick="javascript:copyclip(syntax);" style="width: 22px; height: 20px"><img src="../../images/Clipboard.png" width="15" height="13" /></button></th>
+<td bgcolor="#CCFF99"><code id="syntax">(dcl-Grid-SetCellStyle <i>
+            <a href="../../DataType/Control.htm">&lt;CONTROL&gt;</a></i><font color="#FF0000"> Строка [типа <a href="../../DataType/Long.htm">Long</a>] Столбец [типа
+            <a href="../../DataType/Long.htm">Long</a>] Style [типа
+            <a href="../../DataType/Integer.htm">Integer</a>]</font>)</code></td>
+          </tr>
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Возвращаемый тип</th>
+            <td bgcolor="#CCFF99"><a href="../../DataType/Boolean.htm">Boolean</a> (T - успешно; иначе NIL)</td>
+          </tr>
+          <tr>
+            <th bgcolor="#FFCC99" align="left" valign="top" nowrap>Подходит к</th>
+            <td bgcolor="#CCFF99">
+      <a href="../../Control/Grid.htm">Grid</a></td>
+          </tr>
+        </table>
+    <p>This method sets the  cell style for the cell at the 
+        specified row and column. Note that cells inherit the column default 
+        style when style is set to -1.</p>
+      <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111">
+          <tr>
+            <th nowrap>Style</th>
+            <th nowrap>Description</th>
+          </tr>
+          <tr>
+            <td>-1</td>
+            <td>Undefined</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>No style set</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Check box</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Option button</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Toggle Icon (see <a href="SetCellImages.htm">SetCellImages</a>)</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Ellipsis button</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Pick button</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Text</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Angle</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Integer</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Unit (affected by DIMZIN system variable)</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Upper case text</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>Lower case text</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>Password</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>Multiline text</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>Currency</td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>Date</td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>Time</td>
+          </tr>
+          <tr>
+            <td>17</td>
+            <td>Percentage</td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td>Dropdown list</td>
+          </tr>
+          <tr>
+            <td>19</td>
+            <td>Arrows</td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td>AutoCAD colors</td>
+          </tr>
+          <tr>
+            <td>21</td>
+            <td>Text styles</td>
+          </tr>
+          <tr>
+            <td>22</td>
+            <td>Plot styles</td>
+          </tr>
+          <tr>
+            <td>23</td>
+            <td>Plot style tables</td>
+          </tr>
+          <tr>
+            <td>24</td>
+            <td>Plotters</td>
+          </tr>
+          <tr>
+            <td>25</td>
+            <td>Fonts</td>
+          </tr>
+          <tr>
+            <td>26</td>
+            <td>Drives</td>
+          </tr>
+          <tr>
+            <td>27</td>
+            <td>Layers</td>
+          </tr>
+          <tr>
+            <td>28</td>
+            <td>Dimension styles</td>
+          </tr>
+          <tr>
+            <td>29</td>
+            <td>Image/text dropdown list</td>
+          </tr>
+          <tr>
+            <td>30</td>
+            <td>AutoCAD color</td>
+          </tr>
+          <tr>
+            <td>31</td>
+            <td>Truecolor</td>
+          </tr>
+          <tr>
+            <td>32</td>
+            <td>Lineweight</td>
+          </tr>
+          <tr>
+            <td>33</td>
+            <td>Linetype</td>
+          </tr>
+          <tr>
+            <td>34</td>
+            <td>Folders</td>
+          </tr>
+          <tr>
+            <td>35</td>
+            <td>Files (see <a href="SetCellDropList.htm">SetCellDropList</a>)</td>
+          </tr>
+          <tr>
+            <td>36</td>
+            <td>Dropdown combo list</td>
+          </tr>
+          <tr>
+            <td>37</td>
+            <td>Dropdown angles combo list</td>
+          </tr>
+          <tr>
+            <td>38</td>
+            <td>Dropdown integers combo list</td>
+          </tr>
+          <tr>
+            <td>39</td>
+            <td>Dropdown units combo list (affected by DIMZIN system variable)</td>
+          </tr>
+          <tr>
+            <td>40</td>
+            <td>Dropdown upper case text combo list</td>
+          </tr>
+          <tr>
+            <td>41</td>
+            <td>Dropdown lower case text combo list</td>
+          </tr>
+          <tr>
+            <td>42</td>
+            <td>AutoCAD symbol name</td>
+          </tr>
+          <tr>
+            <td>43</td>
+            <td>Dropdown AutoCAD symbol name combo list</td>
+          </tr>
+        </table>
+  </div>
+  <hr />
+  <div id="footer">
+    <p>Авторские права © 2026 <a href="http://www.opendcl.com/" target="_blank">OpenDCL Consortium</a>. Все права защищены.</p>
+    <p>OpenDCL является товарным знаком <a href="http://www.opendcl.com/" target="_blank">OpenDCL Consortium</a>.</p>
+    <p>AutoCAD и AutoLISP являются зарегистрированными торговыми марками компании <a href="http://www.autodesk.com/" target="_blank">Autodesk, Inc.</a></p>
+    <p>Windows является зарегистрированной торговой маркой компании <a href="http://www.microsoft.com/" target="_blank">Microsoft Corporation</a> в Соединенных Штатах и других странах.</p>
+  </div>
+</body>
+</html>

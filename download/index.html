@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenDCL Download</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="icon" href="../assets/odcl_logo_64x64.png">
+  <script src="../assets/versions.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="../index.html">
+        <img src="../assets/odcl_logo_64x64.png" alt="">
+        <span>OpenDCL</span>
+      </a>
+      <nav class="nav">
+        <a href="./">Download</a>
+        <a href="../HelpFiles/">Help</a>
+        <a href="https://www.opendcl.com/forum/">Forum</a>
+        <a href="https://github.com/opendcl/OpenDCL">Source</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Download OpenDCL</h1>
+    <p class="lead">
+      Start with <strong>OpenDCL Studio</strong> if you are new — it creates and edits dialogs and installs the runtime.
+      Advanced users can download the Runtime alone for deployment.
+    </p>
+    <p class="note">
+      Installers are hosted as
+      <a id="link-releases" href="https://github.com/opendcl/OpenDCL/releases">GitHub Release</a>
+      assets. Older archives may still be on
+      <a id="link-sf" href="https://sourceforge.net/projects/opendcl/files/">SourceForge</a>.
+    </p>
+
+    <h2>OpenDCL Studio</h2>
+    <p class="note">If you are new to OpenDCL, start here. The Studio is where you create and edit dialog boxes.</p>
+    <table class="download" id="studio-table">
+      <thead>
+        <tr>
+          <th id="th-stable">Stable build</th>
+          <th id="th-current">Current build</th>
+        </tr>
+      </thead>
+      <tbody id="studio-body">
+        <!-- filled by script -->
+      </tbody>
+    </table>
+    <p>
+      After installing Studio, see the
+      <a href="https://www.opendcl.com/forum/index.php?topic=2911.0">beginners tutorial</a>
+      on the forum.
+    </p>
+
+    <h2>OpenDCL Runtime</h2>
+    <p class="note">For advanced users: deploy the runtime modules (.ARX / .BRX / etc.) to end users.</p>
+    <table class="download">
+      <thead>
+        <tr>
+          <th id="th-rt-stable">Stable build</th>
+          <th id="th-rt-current">Current build</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a id="rt-msi-stable" href="#">Windows Installer (.MSI)</a></td>
+          <td><a id="rt-msi-current" href="#">Windows Installer (.MSI)</a></td>
+        </tr>
+        <tr>
+          <td><a id="rt-msm-stable" href="#">Merge Module (.MSM)</a></td>
+          <td><a id="rt-msm-current" href="#">Merge Module (.MSM)</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Source</h2>
+    <p>
+      <a id="link-source" href="https://github.com/opendcl/OpenDCL">View source on GitHub</a><br>
+      <a id="link-sf2" href="https://sourceforge.net/projects/opendcl/files/">Historical files on SourceForge</a>
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; 2007&ndash;2026 OpenDCL Consortium. All rights reserved.</p>
+    <p>OpenDCL is a trademark of OpenDCL Consortium.</p>
+  </footer>
+
+  <script>
+    (function () {
+      var v = window.OPENDCL_VERSIONS;
+      var stable = v.stable;
+      var current = v.current;
+      var langs = [
+        { code: "ENU", label: "English", flag: "flag_us.png" },
+        { code: "DEU", label: "German", flag: "flag_de.png" },
+        { code: "CHS", label: "Chinese (Simplified)", flag: "flag_zh-CN.png" },
+        { code: "ESM", label: "Spanish", flag: "flag_es.png" },
+        { code: "FRA", label: "French", flag: "flag_fr.png" },
+        { code: "RUS", label: "Russian", flag: "flag_ru.png" }
+      ];
+
+      document.getElementById("th-stable").innerHTML =
+        "Stable build <strong>[" + stable + "]</strong><br><span class='note'>Known issues worked out; may lag current features.</span>";
+      document.getElementById("th-current").innerHTML =
+        "Current build <strong>[" + current + "]</strong><br><span class='note'>Newest features for testing; usually stable.</span>";
+      document.getElementById("th-rt-stable").innerHTML =
+        "Stable build <strong>[" + stable + "]</strong>";
+      document.getElementById("th-rt-current").innerHTML =
+        "Current build <strong>[" + current + "]</strong>";
+
+      var tbody = document.getElementById("studio-body");
+      langs.forEach(function (lang) {
+        var tr = document.createElement("tr");
+        function cell(ver) {
+          var td = document.createElement("td");
+          var a = document.createElement("a");
+          a.href = window.opendclStudioUrl(lang.code, ver);
+          a.innerHTML =
+            '<img class="flag" src="../assets/flags/' + lang.flag + '" alt=""> ' +
+            lang.label;
+          td.appendChild(a);
+          return td;
+        }
+        tr.appendChild(cell(stable));
+        tr.appendChild(cell(current));
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById("rt-msi-stable").href = window.opendclRuntimeUrl(stable, false);
+      document.getElementById("rt-msi-current").href = window.opendclRuntimeUrl(current, false);
+      document.getElementById("rt-msm-stable").href = window.opendclRuntimeUrl(stable, true);
+      document.getElementById("rt-msm-current").href = window.opendclRuntimeUrl(current, true);
+
+      document.getElementById("link-releases").href = v.sourceRepo + "/releases";
+      document.getElementById("link-source").href = v.sourceRepo;
+      document.getElementById("link-sf").href = v.sourceForgeFiles;
+      document.getElementById("link-sf2").href = v.sourceForgeFiles;
+    })();
+  </script>
+</body>
+</html>
