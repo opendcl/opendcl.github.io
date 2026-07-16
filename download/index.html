@@ -94,11 +94,12 @@
       var v = window.OPENDCL_VERSIONS;
       var stable = v.stable;
       var current = v.current;
+      // currentOnly: true for languages not shipped in the stable channel (e.g. CHT)
       var langs = [
         { code: "ENU", label: "English", flag: "flag_us.png" },
         { code: "DEU", label: "German", flag: "flag_de.png" },
         { code: "CHS", label: "Chinese (Simplified)", flag: "flag_zh-CN.png" },
-        { code: "CHT", label: "Chinese (Traditional)", flag: "flag_zh-CN.png" },
+        { code: "CHT", label: "Chinese (Traditional)", flag: "flag_zh-CN.png", currentOnly: true },
         { code: "ESM", label: "Spanish", flag: "flag_es.png" },
         { code: "FRA", label: "French", flag: "flag_fr.png" },
         { code: "RUS", label: "Russian", flag: "flag_ru.png" }
@@ -116,8 +117,12 @@
       var tbody = document.getElementById("studio-body");
       langs.forEach(function (lang) {
         var tr = document.createElement("tr");
-        function cell(ver) {
+        function cell(ver, available) {
           var td = document.createElement("td");
+          if (!available) {
+            td.innerHTML = "<span class='note'>—</span>";
+            return td;
+          }
           var a = document.createElement("a");
           a.href = window.opendclStudioUrl(lang.code, ver);
           a.innerHTML =
@@ -126,8 +131,8 @@
           td.appendChild(a);
           return td;
         }
-        tr.appendChild(cell(stable));
-        tr.appendChild(cell(current));
+        tr.appendChild(cell(stable, !lang.currentOnly));
+        tr.appendChild(cell(current, true));
         tbody.appendChild(tr);
       });
 
