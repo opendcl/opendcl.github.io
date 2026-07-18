@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenDCL Localization packs</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="icon" href="../assets/odcl_logo_64x64.png">
+  <style>
+    .pack-table td { vertical-align: middle; }
+    .btn {
+      display: inline-block;
+      padding: 0.4rem 0.85rem;
+      margin: 0.15rem 0.25rem 0.15rem 0;
+      border-radius: 6px;
+      border: 1px solid var(--odcl-border);
+      background: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--odcl-blue-dark);
+    }
+    .btn:hover { background: #eef3fa; text-decoration: none; }
+    .btn-primary {
+      background: var(--odcl-blue);
+      border-color: var(--odcl-blue);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--odcl-blue-dark); color: #fff; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .status {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid var(--odcl-border);
+      font-family: Consolas, monospace;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      min-height: 3rem;
+    }
+    .card {
+      background: var(--odcl-card);
+      border: 1px solid var(--odcl-border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="../index.html">
+        <img src="../assets/odcl_logo_64x64.png" alt="">
+        <span>OpenDCL</span>
+      </a>
+      <nav class="nav">
+        <a href="../download/">Download</a>
+        <a href="./">Localization</a>
+        <a href="../HelpFiles/">Help</a>
+        <a href="https://www.opendcl.com/forum/">Forum</a>
+        <a href="https://github.com/opendcl/OpenDCL">Source</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Localization packs</h1>
+    <p class="lead">
+      Download language packs for translators who prefer not to use git, or as a
+      starting point for a new language. Each zip holds the shared/runtime/studio
+      resource scripts and Studio help HTML for one language.
+    </p>
+
+    <div class="card">
+      <h2 style="margin-top:0">What is in a pack?</h2>
+      <ul>
+        <li><code>Common/&lt;LANG&gt;/SharedRes.&lt;LANG&gt;.rc</code></li>
+        <li><code>Runtime/Localized/&lt;LANG&gt;/Runtime.Res/Runtime.&lt;LANG&gt;.rc</code></li>
+        <li><code>Studio/Localized/&lt;LANG&gt;/Studio.Res/Studio.&lt;LANG&gt;.rc</code></li>
+        <li><code>Studio/Localized/&lt;LANG&gt;/Content/</code> help topics (HTML/CSS/JS/images; Samples omitted)</li>
+      </ul>
+      <p class="note">
+        Packs are built from
+        <a href="https://github.com/opendcl/OpenDCL">github.com/opendcl/OpenDCL</a>.
+        Return translations via a pull request or the
+        <a href="https://www.opendcl.com/forum/">forum</a>.
+      </p>
+    </div>
+
+    <h2>Pre-built packs (recommended)</h2>
+    <p class="note">
+      Published by GitHub Actions as rolling release
+      <a id="link-release" href="https://github.com/opendcl/OpenDCL/releases/tag/localization-packs">localization-packs</a>
+      (refreshed when localization sources change on <code>main</code>, or as part of
+      a product <strong>Make release</strong>). Versioned product releases
+      (<code>vA.B.C.D</code>) can also include the same <code>OpenDCL.&lt;LANG&gt;.zip</code> files.
+    </p>
+    <table class="download pack-table">
+      <thead>
+        <tr>
+          <th>Language</th>
+          <th>Pre-built zip</th>
+          <th>Build in browser from current <code>main</code></th>
+        </tr>
+      </thead>
+      <tbody id="pack-body"></tbody>
+    </table>
+    <p id="release-meta" class="note"></p>
+
+    <h2>On-demand from current sources</h2>
+    <p>
+      Use <strong>Build from main</strong> to assemble a zip in your browser from
+      public files on GitHub (<code>main</code> branch). No login required.
+      This can take a minute and is subject to GitHub API rate limits; prefer
+      pre-built packs when available.
+    </p>
+    <div class="status" id="status">Ready.</div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; 2007&ndash;2026 OpenDCL Consortium. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script>
+    (function () {
+      var REPO = "opendcl/OpenDCL";
+      var REF = "main";
+      var RELEASE_TAG = "localization-packs";
+      var RELEASE_API = "https://api.github.com/repos/" + REPO + "/releases/tags/" + RELEASE_TAG;
+      var TREE_API = "https://api.github.com/repos/" + REPO + "/git/trees/" + REF + "?recursive=1";
+      var RAW = "https://raw.githubusercontent.com/" + REPO + "/" + REF + "/";
+
+      var langs = [
+        { code: "ENU", label: "English", flag: "flag_us.png" },
+        { code: "DEU", label: "German", flag: "flag_de.png" },
+        { code: "CHS", label: "Chinese (Simplified)", flag: "flag_zh-CN.png" },
+        { code: "CHT", label: "Chinese (Traditional)", flag: "flag_zh-CN.png" },
+        { code: "ESM", label: "Spanish", flag: "flag_es.png" },
+        { code: "FRA", label: "French", flag: "flag_fr.png" },
+        { code: "RUS", label: "Russian", flag: "flag_ru.png" }
+      ];
+
+      var contentExt = { htm: 1, html: 1, png: 1, css: 1, js: 1, gif: 1, jpg: 1, jpeg: 1 };
+      var statusEl = document.getElementById("status");
+      var assetByLang = {};
+
+      function setStatus(msg) {
+        statusEl.textContent = msg;
+      }
+
+      function releaseAssetUrl(lang) {
+        return "https://github.com/" + REPO + "/releases/download/" + RELEASE_TAG + "/OpenDCL." + lang + ".zip";
+      }
+
+      function isContentPath(path, lang) {
+        var prefix = "Studio/Localized/" + lang + "/Content/";
+        if (path.indexOf(prefix) !== 0) return false;
+        var rest = path.substring(prefix.length);
+        if (rest.indexOf("Samples/") === 0 || rest.indexOf("Samples\\") === 0) return false;
+        var dot = path.lastIndexOf(".");
+        if (dot < 0) return false;
+        var ext = path.substring(dot + 1).toLowerCase();
+        return !!contentExt[ext];
+      }
+
+      function pathsForLang(allPaths, lang) {
+        var fixed = [
+          "Common/" + lang + "/SharedRes." + lang + ".rc",
+          "Runtime/Localized/" + lang + "/Runtime.Res/Runtime." + lang + ".rc",
+          "Studio/Localized/" + lang + "/Studio.Res/Studio." + lang + ".rc"
+        ];
+        var out = [];
+        fixed.forEach(function (p) {
+          if (allPaths.indexOf(p) >= 0) out.push(p);
+        });
+        allPaths.forEach(function (p) {
+          if (isContentPath(p, lang)) out.push(p);
+        });
+        return out;
+      }
+
+      async function fetchJson(url) {
+        var res = await fetch(url, {
+          headers: { Accept: "application/vnd.github+json" }
+        });
+        if (!res.ok) throw new Error(url + " → HTTP " + res.status);
+        return res.json();
+      }
+
+      async function buildZip(lang) {
+        var btn = document.getElementById("btn-build-" + lang);
+        if (btn) btn.disabled = true;
+        try {
+          setStatus("[" + lang + "] Loading file tree from " + REPO + "@" + REF + "…");
+          var tree = await fetchJson(TREE_API);
+          if (!tree.tree) throw new Error("Unexpected tree response");
+          var allPaths = tree.tree
+            .filter(function (e) { return e.type === "blob"; })
+            .map(function (e) { return e.path; });
+          var paths = pathsForLang(allPaths, lang);
+          if (paths.length === 0) throw new Error("No files found for " + lang);
+
+          setStatus("[" + lang + "] Fetching " + paths.length + " files…");
+          var zip = new JSZip();
+          var i;
+          for (i = 0; i < paths.length; i++) {
+            var path = paths[i];
+            if (i % 25 === 0 || i === paths.length - 1) {
+              setStatus("[" + lang + "] Fetching " + (i + 1) + " / " + paths.length + "\n" + path);
+            }
+            var res = await fetch(RAW + path.split("/").map(encodeURIComponent).join("/"));
+            if (!res.ok) throw new Error("Failed " + path + " (" + res.status + ")");
+            var buf = await res.arrayBuffer();
+            zip.file(path, buf);
+          }
+
+          zip.file("README-" + lang + ".txt",
+            "OpenDCL localization pack — " + lang + "\n" +
+            "Built in-browser from " + REPO + "@" + REF + "\n" +
+            "https://github.com/" + REPO + "\n");
+
+          setStatus("[" + lang + "] Compressing zip…");
+          var blob = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "OpenDCL." + lang + ".zip";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setStatus("[" + lang + "] Done — downloaded OpenDCL." + lang + ".zip (" + paths.length + " files).");
+        } catch (err) {
+          setStatus("[" + lang + "] Error: " + (err && err.message ? err.message : err));
+        } finally {
+          if (btn) btn.disabled = false;
+        }
+      }
+
+      function renderTable() {
+        var tbody = document.getElementById("pack-body");
+        tbody.innerHTML = "";
+        langs.forEach(function (lang) {
+          var tr = document.createElement("tr");
+          var td1 = document.createElement("td");
+          td1.innerHTML =
+            '<img class="flag" src="../assets/flags/' + lang.flag + '" alt=""> ' +
+            lang.label + " (" + lang.code + ")";
+
+          var td2 = document.createElement("td");
+          var a = document.createElement("a");
+          a.className = "btn btn-primary";
+          a.textContent = "Download zip";
+          a.href = assetByLang[lang.code] || releaseAssetUrl(lang.code);
+          if (assetByLang[lang.code]) {
+            a.title = "From release " + RELEASE_TAG;
+          } else {
+            a.title = "Expected asset name OpenDCL." + lang.code + ".zip on release " + RELEASE_TAG;
+          }
+          td2.appendChild(a);
+
+          var td3 = document.createElement("td");
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "btn";
+          b.id = "btn-build-" + lang.code;
+          b.textContent = "Build from main";
+          b.addEventListener("click", function () { buildZip(lang.code); });
+          td3.appendChild(b);
+
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          tr.appendChild(td3);
+          tbody.appendChild(tr);
+        });
+      }
+
+      async function loadReleaseMeta() {
+        try {
+          var rel = await fetchJson(RELEASE_API);
+          var meta = document.getElementById("release-meta");
+          var when = rel.published_at || rel.created_at || "";
+          meta.textContent = "Latest packaged release: " + RELEASE_TAG +
+            (when ? " (" + when + ")" : "") +
+            (rel.target_commitish ? " · " + rel.target_commitish : "");
+          if (rel.assets) {
+            rel.assets.forEach(function (asset) {
+              var m = /^OpenDCL\.([A-Z]{3})\.zip$/i.exec(asset.name);
+              if (m) assetByLang[m[1].toUpperCase()] = asset.browser_download_url;
+            });
+          }
+        } catch (e) {
+          document.getElementById("release-meta").textContent =
+            "Pre-built release not found yet (run the Localization packs workflow on GitHub). You can still use Build from main.";
+        }
+        renderTable();
+      }
+
+      document.getElementById("link-release").href =
+        "https://github.com/" + REPO + "/releases/tag/" + RELEASE_TAG;
+      loadReleaseMeta();
+    })();
+  </script>
+</body>
+</html>

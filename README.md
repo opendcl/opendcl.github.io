@@ -8,6 +8,7 @@ GitHub Pages site for the [OpenDCL](https://github.com/opendcl/OpenDCL) project.
 | --- | --- |
 | `/` | Project home |
 | `/download/` | Studio / Runtime download page |
+| `/localization/` | Translator language packs (pre-built + browser build from `main`) |
 | `/HelpFiles/` | Online help (ENU, DEU, RUS) |
 
 Installers are **not** stored in this repository (they are large). Download links point to **GitHub Releases** on [`opendcl/OpenDCL`](https://github.com/opendcl/OpenDCL/releases).
