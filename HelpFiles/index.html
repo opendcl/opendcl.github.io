@@ -78,80 +78,271 @@ var hash = getParamValue("hash");
 if (hash) hash = "#" + hash; else hash = "";
 
 var onTopicChanged = null;
+var _permalinkRetryTimer = null;
+var _permalinkRetries = 0;
+// Last same-origin topic (path after HelpFiles/<LANG>/). Used for >> and Translate.
+var lastHelpTopicPage = getParamValue("page") || "Index.htm";
+var lastHelpTopicHash = getParamValue("hash") || "";
+var lastHelpTopicLang = null; // ENU/DEU/RUS when known from main/hdr
+
+function captureMainTopic() {
+  // Read the main frame's current topic file (not the parent frameset URL).
+  try {
+    if (!main || !main.window || !main.window.location) return null;
+    var loc = main.window.location;
+    var path = decodeURIComponent(loc.pathname || "");
+    if (/\/HelpFiles\/index\.html$/i.test(path)) return null;
+    var m = path.match(/\/HelpFiles\/([^\/]+)\/(.+)$/i);
+    if (!m) return null;
+    var lang = m[1];
+    var pagePath = m[2].replace(/\/$/, "");
+    // Ignore accidental query junk in path
+    pagePath = pagePath.split("?")[0];
+    if (!pagePath) return null;
+    lastHelpTopicLang = lang;
+    lastHelpTopicPage = pagePath;
+    try {
+      lastHelpTopicHash = loc.hash ? loc.hash.substr(1) : "";
+    } catch (eH) { /* ignore */ }
+    return { lang: lang, page: pagePath, hash: lastHelpTopicHash };
+  } catch (e) {
+    // Cross-origin main (should not happen for our topics)
+    return null;
+  }
+}
+
+function getHelpTopicPagePath() {
+  var cap = captureMainTopic();
+  if (cap) return cap.page;
+  if (lastHelpTopicPage) return lastHelpTopicPage;
+  var q = getParamValue("page");
+  if (q) {
+    lastHelpTopicPage = q;
+    return q;
+  }
+  return null;
+}
+
+function updatePermalink() {
+  // >> link lives in hdr Top.html (under …/HelpFiles/<LANG>/). Rebuild after every
+  // language switch: Top.html reloads empty and main may load before hdr is ready.
+  try {
+    if (typeof hdr === "undefined" || !hdr.window || !hdr.window.document) {
+      schedulePermalinkRetry();
+      return false;
+    }
+    var doc = hdr.window.document;
+    var permalink = doc.getElementById
+      ? doc.getElementById("permalink")
+      : doc.all
+        ? doc.all["permalink"]
+        : null;
+    if (!permalink) {
+      schedulePermalinkRetry();
+      return false;
+    }
+
+    var pagePath = getHelpTopicPagePath();
+    if (!pagePath) {
+      schedulePermalinkRetry();
+      return false;
+    }
+
+    // Root-relative HelpFiles index (must not resolve under <LANG>/).
+    var helpIndex =
+      window.location.pathname.split(/\/HelpFiles\//i)[0] +
+      "/HelpFiles/index.html";
+    var pageQ = encodeURIComponent(pagePath).replace(/%2F/gi, "/");
+    var permurl = helpIndex + "?page=" + pageQ;
+    var h = lastHelpTopicHash;
+    try {
+      if (main.window.location.hash)
+        h = main.window.location.hash.substr(1);
+    } catch (eHash) { /* cross-origin main — keep lastHelpTopicHash */ }
+    if (h) permurl += "&hash=" + encodeURIComponent(h);
+
+    permalink.innerHTML =
+      '<a href="' +
+      permurl +
+      '" title="' +
+      permurl +
+      '" onclick="return false;">&gt;&gt;</a>';
+    _permalinkRetries = 0;
+    return true;
+  } catch (e) {
+    schedulePermalinkRetry();
+    return false;
+  }
+}
+
+function schedulePermalinkRetry() {
+  if (_permalinkRetries >= 20) return;
+  if (_permalinkRetryTimer) return;
+  _permalinkRetries++;
+  _permalinkRetryTimer = setTimeout(function () {
+    _permalinkRetryTimer = null;
+    updatePermalink();
+  }, 50);
+}
+
+function adjustHeaderHeight() {
+  try {
+    if (typeof hdr === "undefined" || !hdr.window || !hdr.window.document) return;
+    var hdrFrameSet = document.getElementById("hdr");
+    if (!hdrFrameSet || hdrFrameSet.rows === "*") return;
+    if (this.hdrUrl === hdr.window.location.href) return;
+    var tables = hdr.window.document.getElementsByTagName("table");
+    if (!tables || !tables[0]) return;
+    var hdrSize = getElementSize(tables[0]);
+    if (!hdrSize || !hdrFrameSet) return;
+    var row0 = parseInt(String(hdrFrameSet.rows).split(",")[0], 10) || 0;
+    if (row0 < hdrSize.y + 5) hdrFrameSet.rows = hdrSize.y + 5 + ",*";
+    this.hdrUrl = hdr.window.location.href;
+  } catch (e) { /* ignore */ }
+}
 
 function onFrameLoaded() {
   try {
-    if (typeof hdr !== "undefined" && hdr.window) {
-      if (this.hdrUrl != hdr.window.location.href) {
-        var hdrFrameSet = document.getElementById("hdr");
-        if (hdrFrameSet && hdrFrameSet.rows == "*") this.hdrUrl = null;
-        else if (hdr.window.document) {
-          var tables = hdr.window.document.getElementsByTagName("table");
-          if (tables && tables[0]) {
-            var hdrSize = getElementSize(tables[0]);
-            if (hdrSize && hdrFrameSet) {
-              var row0 = parseInt(String(hdrFrameSet.rows).split(",")[0], 10) || 0;
-              if (row0 < hdrSize.y + 5) hdrFrameSet.rows = hdrSize.y + 5 + ",*";
-              this.hdrUrl = hdr.window.location.href;
-            }
-          }
-        }
-      }
-      if (main.window && main.window.document) document.title = main.window.document.title;
-      var permalink = null;
-      if (hdr.window.document.getElementById)
-        permalink = hdr.window.document.getElementById("permalink");
-      else if (hdr.window.document.all) permalink = hdr.window.document.all["permalink"];
-      if (permalink && main.window.location.pathname) {
-        var m = main.window.location.pathname.match(/HelpFiles\/...\/([^\?]*)/);
-        if (m) {
-          var permurl = "index.html?page=" + m[1];
-          permalink.innerHTML = '<a href="' + permurl + '">&gt;&gt;</a>';
-        }
-      }
+    adjustHeaderHeight();
+  } catch (eAdj) { /* ignore */ }
+  try {
+    if (main && main.window && main.window.document)
+      document.title = main.window.document.title;
+  } catch (eTitle) { /* ignore */ }
+
+  // Always re-bind and refresh >> (hdr Top.html is empty until this runs).
+  _permalinkRetries = 0;
+  updatePermalink();
+
+  try {
+    if (onTopicChanged && main && main.window) onTopicChanged(main.window);
+  } catch (eTopic) { /* ignore */ }
+
+  try {
+    if (typeof main !== "undefined" && main) main.onload = onFrameLoaded;
+  } catch (eMain) { /* ignore */ }
+  try {
+    if (typeof hdr !== "undefined" && hdr) hdr.onload = onFrameLoaded;
+  } catch (eHdr) { /* ignore */ }
+}
+
+function getUiHelpLang() {
+  // Language folder of the topic currently shown (ENU/DEU/RUS).
+  var cap = captureMainTopic();
+  if (cap && cap.lang) return cap.lang;
+  if (lastHelpTopicLang) return lastHelpTopicLang;
+  try {
+    if (hdr && hdr.window && hdr.window.location) {
+      var hp = hdr.window.location.pathname || "";
+      var hm = hp.match(/\/HelpFiles\/([^\/]+)\//i);
+      if (hm) return hm[1];
     }
-  } catch (e) { /* cross-frame edge cases */ }
-  if (onTopicChanged && main.window) onTopicChanged(main.window);
-  if (main) main.onload = onFrameLoaded;
+  } catch (e2) { /* ignore */ }
+  if (language === "ENU" || language === "DEU" || language === "RUS") return language;
+  return "ENU";
+}
+
+function buildTopicFileUrl(pagePath, langCode, hashPart, forTranslate) {
+  // Always a concrete topic file under HelpFiles/<LANG>/… — never the frameset index.html.
+  var helpRoot =
+    window.location.pathname.split(/\/HelpFiles\//i)[0] + "/HelpFiles/";
+  var path = String(pagePath || "Index.htm").replace(/^\/+/, "");
+  var url =
+    window.location.protocol +
+    "//" +
+    window.location.host +
+    helpRoot +
+    (langCode || "ENU") +
+    "/" +
+    path;
+  // Google Translate loads the topic as a top-level page on *.translate.goog.
+  // Framer.js would otherwise redirect into index.html?lang=&page= on that host.
+  if (forTranslate) {
+    url += (url.indexOf("?") >= 0 ? "&" : "?") + "noframes=1";
+  }
+  if (hashPart) url += "#" + hashPart;
+  return url;
 }
 
 function changeLang(newlang) {
-  var lang = "ENU";
-  var pageName = "Index.htm";
-  var url = main.window.location;
-  var path = url.pathname.split("/HelpFiles/")[1];
-  if (typeof path != "undefined") {
-    lang = path.split("/")[0];
-    pageName = path.substr(lang.length + 1);
+  // Native packs ENU/DEU/RUS: rebuild frameset (index.html?lang=&page=).
+  // Other flags (fr, es, …): Google Translate of the *topic file* in a new tab.
+  //
+  // Expected Translate URL shape (this is normal, not a bug):
+  //   https://opendcl-github-io.translate.goog/HelpFiles/ENU/<Topic>.htm?noframes=1&_x_tr_tl=fr…
+  // ENU/DEU/RUS in that path is the *source* HTML we have online; Google applies French.
+  // There is no HelpFiles/FRA/ pack on this site.
+  var cap = captureMainTopic();
+  var pageName =
+    (cap && cap.page) || lastHelpTopicPage || getParamValue("page") || "Index.htm";
+  var topicHash =
+    (cap && cap.hash) || lastHelpTopicHash || "";
+  var helpRoot =
+    window.location.pathname.split(/\/HelpFiles\//i)[0] + "/HelpFiles/";
+  var uiLang = (cap && cap.lang) || getUiHelpLang();
+
+  var native = { ENU: true, DEU: true, RUS: true };
+  if (native[newlang]) {
+    var newurl =
+      helpRoot +
+      "index.html?lang=" +
+      encodeURIComponent(newlang) +
+      "&page=" +
+      encodeURIComponent(pageName).replace(/%2F/gi, "/");
+    if (topicHash) newurl += "&hash=" + encodeURIComponent(topicHash);
+    if (parent.window.location.href !== newurl) parent.window.location = newurl;
+    return false;
   }
-  if (newlang == "ENU" || newlang == "DEU" || newlang == "RUS") {
-    var base = url.pathname.split("/HelpFiles/")[0] + "/HelpFiles/" + newlang + "/" + pageName;
-    var pageParams = new UrlParams(window.location.search);
-    pageParams.setValue("page", null);
-    pageParams.setValue("lang", null);
-    pageParams.setValue("hash", null);
-    var qs = pageParams.getQueryString();
-    var newurl = base;
-    if (qs) newurl += "?" + qs;
-    if (url.hash) newurl += url.hash;
-    if (parent.window.location != newurl) parent.window.location = newurl;
-    return;
+
+  // Machine translation source = topic HTML file + noframes=1 (see Framer.js).
+  var topicHref = buildTopicFileUrl(pageName, uiLang, topicHash, true);
+  var translateUrl =
+    "https://translate.google.com/translate?sl=auto&tl=" +
+    encodeURIComponent(newlang) +
+    "&u=" +
+    encodeURIComponent(topicHref);
+
+  // Open from the header frame when possible so the click counts as a user
+  // gesture (top.window.open from javascript:void in a child frame is often blocked).
+  var win = null;
+  try {
+    if (hdr && hdr.window) win = hdr.window.open(translateUrl, "_blank");
+  } catch (eHdrOpen) {
+    win = null;
   }
-  var slang = "en";
-  if (lang == "DEU") slang = "de";
-  else if (lang == "RUS") slang = "ru";
-  var newurl =
-    "https://www.google.com/translate_c?u=" +
-    escape(url.href) +
-    "&sl=" + slang + "&tl=" + newlang + "&hl=" + newlang;
-  if (url.hash) newurl += url.hash;
-  parent.window.location = newurl;
+  if (!win) {
+    try {
+      win = window.open(translateUrl, "_blank");
+    } catch (eOpen) {
+      win = null;
+    }
+  }
+  if (!win) {
+    // Popup blocked: inject a temporary link and click it (still user-gesture adjacent).
+    try {
+      var doc = hdr && hdr.window && hdr.window.document ? hdr.window.document : document;
+      var a = doc.createElement("a");
+      a.href = translateUrl;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.style.display = "none";
+      doc.body.appendChild(a);
+      a.click();
+      doc.body.removeChild(a);
+    } catch (eA) {
+      // Last resort: do NOT navigate the frameset to Translate.
+      // Leave the help page intact (permalink stays).
+    }
+  }
+  _permalinkRetries = 0;
+  updatePermalink();
+  return false;
 }
 
 // Build frameset once DOM-ready substitute: document.write frameset
 document.write(
   '<frameset id="hdr" rows="40,*" cols="*">' +
-    '<frame id="hdrframe" src="' + language + '/Top.html" name="hdr" scrolling="no" noresize="noresize" frameborder="0" border="0">' +
+    '<frame id="hdrframe" src="' + language + '/Top.html" name="hdr" scrolling="no" noresize="noresize" frameborder="0" border="0" onload="javascript:onFrameLoaded();">' +
     '<frameset id="content" cols="220,*" framespacing="6" onload="javascript:onFrameLoaded();">' +
       '<frame id="nav" src="' + language + '/TOC.html" name="nav">' +
       '<frame id="main" frameborder="0" border="0" src="' + language + "/" + page + hash + '" name="main" onload="javascript:onFrameLoaded();">' +

@@ -1,5 +1,3 @@
-@import url(http://www.google.com/cse/api/branding.css);
-
 body
 {
 	font-family: Arial, Sans-Serif;
@@ -23,4 +21,10 @@ table
 img
 {
 	border-style: none;
+}
+
+#cse-search-box input[type="text"]
+{
+	width: 16em;
+	max-width: 40vw;
 }
