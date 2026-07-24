@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenDCL redirect</title>
+  <script src="../assets/versions.js"></script>
+  <script>
+  (function () {
+    var V = window.OPENDCL_VERSIONS || {
+      stable: '9.1.5.2',
+      current: '9.3.3.1',
+      releaseDownloadBase: 'https://github.com/opendcl/OpenDCL/releases/download'
+    };
+    var ARCHIVE = 'https://opendcl.github.io/forum-archive';
+    var DISCUSSIONS = 'https://github.com/opendcl/community/discussions';
+    var ISSUES = 'https://github.com/opendcl/OpenDCL/issues';
+    var HELP = '../HelpFiles/';
+    var DOWNLOAD = '../download/';
+
+    function releaseUrl(filename, version) {
+      return V.releaseDownloadBase + '/v' + version + '/' + filename;
+    }
+    function studio(lang, dev) {
+      var ver = dev ? V.current : V.stable;
+      return releaseUrl('OpenDCL.Studio.' + lang.toUpperCase() + '.' + ver + '.msi', ver);
+    }
+    function runtime(dev, msm) {
+      var ver = dev ? V.current : V.stable;
+      var ext = msm ? 'msm' : 'msi';
+      return releaseUrl('OpenDCL.Runtime.' + ver + '.' + ext, ver);
+    }
+
+    // Keys are lower-case query strings, same convention as the old PHP go/index.php
+    var map = {
+      // Studio installers
+      'studio': studio('enu', false),
+      'studio&dev': studio('enu', true),
+      'studio&enu': studio('enu', false),
+      'studio&enu&dev': studio('enu', true),
+      'studio&deu': studio('deu', false),
+      'studio&deu&dev': studio('deu', true),
+      'studio&chs': studio('chs', false),
+      'studio&chs&dev': studio('chs', true),
+      'studio&fra': studio('fra', false),
+      'studio&fra&dev': studio('fra', true),
+      'studio&esm': studio('esm', false),
+      'studio&esm&dev': studio('esm', true),
+      'studio&rus': studio('rus', false),
+      'studio&rus&dev': studio('rus', true),
+      // Runtime
+      'runtime': runtime(false, false),
+      'runtime&dev': runtime(true, false),
+      'runtime&msm': runtime(false, true),
+      'runtime&msm&dev': runtime(true, true),
+      // Forum → archive / discussions (language boards where known)
+      'forum': '../forum/',
+      'forum&en': '../forum/',
+      'forum&de': ARCHIVE + '/b/11.html',
+      'forum&fr': ARCHIVE + '/b/10.html',
+      'forum&cn': ARCHIVE + '/b/12.html',
+      'forum&ru': ARCHIVE + '/b/14.html',
+      'forum&es': ARCHIVE + '/b/16.html',
+      'forum&en&post': DISCUSSIONS,
+      'forum&de&post': DISCUSSIONS,
+      'forum&fr&post': DISCUSSIONS,
+      'forum&cn&post': DISCUSSIONS,
+      'forum&ru&post': DISCUSSIONS,
+      'forum&es&post': DISCUSSIONS,
+      // Help
+      'help': HELP,
+      'help&en': HELP + 'ENU/',
+      'help&de': HELP + 'DEU/',
+      'help&ru': HELP + 'RUS/',
+      'help&fr': HELP + 'ENU/',
+      'help&cn': HELP + 'ENU/',
+      'help&es': HELP + 'ENU/',
+      // Tutorials / migration guides
+      'tutorials': DOWNLOAD,
+      'tutorials&en': DOWNLOAD,
+      'tutorials&de': DOWNLOAD,
+      // Project / tracker → GitHub
+      'ossproject': 'https://github.com/opendcl/OpenDCL',
+      'ossproject&en': 'https://github.com/opendcl/OpenDCL',
+      'ossproject&de': 'https://github.com/opendcl/OpenDCL',
+      'downloads': DOWNLOAD,
+      'downloads&en': DOWNLOAD,
+      'downloads&de': DOWNLOAD,
+      'bugreport': ISSUES,
+      'bugreport&en': ISSUES,
+      'bugreport&de': ISSUES,
+      'bugreport&new': ISSUES + '/new',
+      'bugreport&en&new': ISSUES + '/new',
+      'bugreport&de&new': ISSUES + '/new',
+      'wishlist': DISCUSSIONS,
+      'wishlist&en': DISCUSSIONS,
+      'wishlist&de': DISCUSSIONS,
+      'wishlist&new': DISCUSSIONS,
+      'wishlist&en&new': DISCUSSIONS,
+      'wishlist&de&new': DISCUSSIONS
+    };
+
+    var qs = (window.location.search || '').replace(/^\?/, '').toLowerCase();
+    // Normalize amp entities if any
+    qs = qs.replace(/&amp;/g, '&');
+    var target = map[qs];
+    if (target) {
+      window.location.replace(target);
+      return;
+    }
+    // Unknown key → download page
+    window.location.replace(DOWNLOAD);
+  })();
+  </script>
+</head>
+<body>
+  <p>Redirecting… If nothing happens, open the
+    <a href="../download/">download page</a>.
+  </p>
+</body>
+</html>
