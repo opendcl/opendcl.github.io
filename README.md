@@ -23,9 +23,14 @@ Edit [`assets/versions.js`](assets/versions.js):
   `OpenDCL.Runtime.{ver}.msi` / `.msm`  
 - Release **tag** must be `v{ver}` (example: `v9.3.3.1`)
 
-## Community forum
+## Community
 
-The SMF forum remains at [www.opendcl.com/forum](https://www.opendcl.com/forum/). This Pages site does not host the forum.
+| Need | Where |
+| --- | --- |
+| New questions & conversation | [GitHub Discussions](https://github.com/opendcl/community/discussions) |
+| Historic forum threads (2007–2026) | [Forum archive](https://opendcl.github.io/forum-archive/) (also [www.opendcl.com/forum-archive](https://www.opendcl.com/forum-archive/)) |
+
+The legacy SMF forum has been **decommissioned**. This site serves the [forum landing](https://www.opendcl.com/forum/) and topic/board redirects under `/forum/` (custom domain `www.opendcl.com` points here).
 
 ## Local preview
 
