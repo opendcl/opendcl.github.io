@@ -8,7 +8,7 @@ window.OPENDCL_VERSIONS = {
   releaseDownloadBase: "https://github.com/opendcl/OpenDCL/releases/download",
   // Source / project links
   sourceRepo: "https://github.com/opendcl/OpenDCL",
-  forum: "https://www.opendcl.com/forum/",
+  forum: "https://opendcl.github.io/forum/",
   // Optional archive while older builds remain only on SourceForge
   sourceForgeFiles: "https://sourceforge.net/projects/opendcl/files/"
 };
