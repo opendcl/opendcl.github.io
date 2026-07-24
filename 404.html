@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — OpenDCL</title>
+  <script>
+  (function () {
+    // Map common legacy paths that miss a static file (trailing slash, old CMS, etc.)
+    var path = (location.pathname || '').replace(/\/+$/, '') || '/';
+    var search = location.search || '';
+    var lower = path.toLowerCase();
+
+    var ARCHIVE = 'https://opendcl.github.io/forum-archive';
+
+    function go(url) {
+      location.replace(url);
+    }
+
+    // /forum or /forum/index.php already have real files; this catches odd variants
+    if (lower.indexOf('/forum') === 0) {
+      go('/forum/' + search + location.hash);
+      return;
+    }
+    if (lower.indexOf('/go') === 0) {
+      go('/go/' + search + location.hash);
+      return;
+    }
+    if (lower.indexOf('/download') === 0) {
+      go('/download/');
+      return;
+    }
+    if (lower.indexOf('/helpfiles') === 0) {
+      go('/HelpFiles/');
+      return;
+    }
+    if (lower.indexOf('/localization') === 0) {
+      go('/localization/');
+      return;
+    }
+    if (lower.indexOf('/wordpress') === 0) {
+      go('/wordpress/');
+      return;
+    }
+    if (lower.indexOf('/donate') === 0) {
+      go('/donate/');
+      return;
+    }
+    if (lower.indexOf('/tutorials') === 0) {
+      go('/download/');
+      return;
+    }
+  })();
+  </script>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <main style="max-width:40rem;margin:3rem auto;padding:0 1rem;font:18px/1.5 system-ui,sans-serif">
+    <h1>Page not found</h1>
+    <p>That URL is not on the new OpenDCL site. Try:</p>
+    <ul>
+      <li><a href="/">Project home</a></li>
+      <li><a href="/download/">Download</a></li>
+      <li><a href="/HelpFiles/">Help</a></li>
+      <li><a href="/forum/">Forum (archive + Discussions)</a></li>
+      <li><a href="https://opendcl.github.io/forum-archive/">Forum archive search</a></li>
+      <li><a href="https://github.com/opendcl/community/discussions">GitHub Discussions</a></li>
+    </ul>
+  </main>
+</body>
+</html>
