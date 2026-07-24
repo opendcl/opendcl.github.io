@@ -7,18 +7,57 @@
   <script>
   (function () {
     // Map common legacy paths that miss a static file (trailing slash, old CMS, etc.)
+    // Important: do not keep a real forum/index.php on GitHub Pages — it is served as
+    // application/x-httpd-php and browsers will not run the JS redirect. Missing
+    // /forum/index.php?topic=… hits this 404 with the original URL preserved.
     var path = (location.pathname || '').replace(/\/+$/, '') || '/';
     var search = location.search || '';
     var lower = path.toLowerCase();
+    var full = (lower + (search || '')).toLowerCase();
 
-    var ARCHIVE = 'https://opendcl.github.io/forum-archive';
+    var ARCHIVE = 'https://www.opendcl.com/forum-archive';
 
     function go(url) {
       location.replace(url);
     }
 
-    // /forum or /forum/index.php already have real files; this catches odd variants
+    function firstId(value) {
+      if (value == null || value === '') return null;
+      var m = String(value).match(/(\d+)/);
+      return m ? m[1] : null;
+    }
+
+    function forumRedirect() {
+      try {
+        var params = new URLSearchParams(search || '');
+        var topicId = firstId(params.get('topic'));
+        var boardId = firstId(params.get('board'));
+        // SMF path-info style: /forum/index.php/topic,56.0 or .../board,2.0
+        if (!topicId) {
+          var tm = full.match(/topic[=,](\d+)/);
+          if (tm) topicId = tm[1];
+        }
+        if (!boardId) {
+          var bm = full.match(/board[=,](\d+)/);
+          if (bm) boardId = bm[1];
+        }
+        if (topicId) {
+          go(ARCHIVE + '/t/' + topicId + '.html');
+          return true;
+        }
+        if (boardId) {
+          go(ARCHIVE + '/b/' + boardId + '.html');
+          return true;
+        }
+      } catch (e) {
+        // Fall through.
+      }
+      return false;
+    }
+
+    // /forum/index.php?topic=N (and other missing forum paths) → archive or landing
     if (lower.indexOf('/forum') === 0) {
+      if (forumRedirect()) return;
       go('/forum/' + search + location.hash);
       return;
     }
@@ -63,7 +102,7 @@
       <li><a href="/download/">Download</a></li>
       <li><a href="/HelpFiles/">Help</a></li>
       <li><a href="/forum/">Forum (archive + Discussions)</a></li>
-      <li><a href="https://opendcl.github.io/forum-archive/">Forum archive search</a></li>
+      <li><a href="https://www.opendcl.com/forum-archive/">Forum archive search</a></li>
       <li><a href="https://github.com/opendcl/community/discussions">GitHub Discussions</a></li>
     </ul>
   </main>
