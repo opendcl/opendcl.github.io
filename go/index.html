@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>OpenDCL redirect</title>
-  <!-- No-JS / failed-JS fallback: human landing page (not a binary). -->
-  <meta http-equiv="refresh" content="8;url=../download/">
+  <!-- No-JS / failed-JS only: HTML landing page — never a direct .msi URL (avoids double downloads). -->
+  <meta http-equiv="refresh" content="5;url=../download/">
   <script src="../assets/versions.js"></script>
   <script>
   (function () {
@@ -94,21 +94,20 @@
     var target = resolve(window.location.search || '');
 
     // Prefer replace so Back does not return to this shim.
+    // Meta refresh stays on ../download/ only — never retarget to MSI/GitHub assets
+    // (file downloads often leave this page open, which would trigger a second download).
     try {
       window.location.replace(target);
     } catch (e) {
       window.location.href = target;
     }
 
-    // If navigation is blocked, leave a direct link and shorten meta refresh to the real target.
     try {
-      var meta = document.querySelector('meta[http-equiv="refresh"]');
-      if (meta) meta.setAttribute('content', '2;url=' + target);
       document.addEventListener('DOMContentLoaded', function () {
         var a = document.getElementById('go-target');
         if (a) {
           a.href = target;
-          a.textContent = target;
+          a.textContent = 'continue';
         }
       });
     } catch (e2) { /* ignore */ }
