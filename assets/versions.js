@@ -1,5 +1,6 @@
 // OpenDCL download versions for GitHub Pages.
 // Update these when publishing a new GitHub Release on opendcl/OpenDCL.
+// Keep version/version.txt == stable and version/version_dev.txt == current (plain A.B.C.D).
 // Release assets must be named: OpenDCL.Studio.{LANG}.{ver}.msi, OpenDCL.Runtime.{ver}.msi|.msm
 window.OPENDCL_VERSIONS = {
   stable: "9.1.5.2",
