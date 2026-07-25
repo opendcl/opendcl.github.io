@@ -30,7 +30,15 @@ Also:
   `OpenDCL.Runtime.{ver}.msi` / `.msm`  
 - Release **tag** must be `v{ver}` (example: `v9.3.3.1`)
 
-Clients that **GET** the plain-text files (current Runtime `UpdateCheck.cpp` and Studio sample `*ODCL:UpdateCheck`) work on GitHub Pages. Short installer links use `/go?…` (`go/index.html`, order-independent tokens + fallbacks). Legacy Runtimes that POST `/version/vercheck.php` are not supported on static Pages.
+**Update-check clients** HTTPS-GET the plain-text `version/*.txt` files (Runtime
+`UpdateCheck.cpp` and Studio sample `*ODCL:UpdateCheck`). Bodies must be four-part
+only; a 404 HTML page must not be treated as a version.
+
+**Short links** `/go?…` (`go/index.html`): JS resolves order-independent tokens and
+`location.replace`s to the real target (often a GitHub Release MSI). **Meta refresh
+always goes to `/download/` only** — never to a binary URL — so a file download that
+leaves the shim page open does not trigger a second download. No-JS users get the
+download page. Legacy Runtimes that POST `/version/vercheck.php` are not supported.
 
 ## Community
 
