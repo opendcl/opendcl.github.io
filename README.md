@@ -17,11 +17,21 @@ Installers are **not** stored in this repository (they are large). Download link
 
 ## Updating versions
 
-Keep these **in sync** on every public ship:
+Keep these **in sync** on every public ship (not private dry-runs):
 
 1. [`assets/versions.js`](assets/versions.js) — `stable` / `current` for the download page and `/go` redirects  
 2. [`version/version.txt`](version/version.txt) — same as `stable` (four-part only, no HTML)  
 3. [`version/version_dev.txt`](version/version_dev.txt) — same as `current`
+
+**Preferred:** product repo script
+[`opendcl/OpenDCL` `scripts/update-site-versions.ps1`](https://github.com/opendcl/OpenDCL/blob/main/scripts/update-site-versions.ps1)
+against this clone (`-SiteRoot` or sibling `../opendcl.github.io`).
+
+| Situation | Command |
+|-----------|---------|
+| Normal public ship (new **dev/current** only) | `update-site-versions.ps1 -DevVersion A.B.C.D` |
+| Promote that shipped build to **stable** | `update-site-versions.ps1 -PromoteToStable` |
+| Rare exception | `-StableVersion` and/or both flags explicitly |
 
 Also:
 
