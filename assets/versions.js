@@ -3,7 +3,7 @@
 // Keep version/version.txt == stable and version/version_dev.txt == current (plain A.B.C.D).
 // Release assets must be named: OpenDCL.Studio.{LANG}.{ver}.msi, OpenDCL.Runtime.{ver}.msi|.msm
 window.OPENDCL_VERSIONS = {
-  stable: "9.1.5.2",
+  stable: "9.3.3.1",
   current: "9.3.3.1",
   // GitHub Releases download base (tag = v{version})
   releaseDownloadBase: "https://github.com/opendcl/OpenDCL/releases/download",
