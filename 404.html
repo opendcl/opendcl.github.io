@@ -81,6 +81,10 @@
       go('/wordpress/');
       return;
     }
+    if (lower.indexOf('/community') === 0) {
+      go('https://github.com/opendcl/community/discussions');
+      return;
+    }
     if (lower.indexOf('/donate') === 0) {
       go('/donate/');
       return;
