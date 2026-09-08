@@ -81,7 +81,7 @@
       go('/wordpress/');
       return;
     }
-    if (lower.indexOf('/community') === 0) {
+    if (lower.indexOf('/discussion') === 0 || lower.indexOf('/community') === 0) {
       go('https://github.com/opendcl/community/discussions');
       return;
     }
@@ -105,6 +105,7 @@
       <li><a href="/">Project home</a></li>
       <li><a href="/download/">Download</a></li>
       <li><a href="/HelpFiles/">Help</a></li>
+      <li><a href="/discussion/">Discussion</a> (GitHub Discussions)</li>
       <li><a href="/forum/">Community</a> (ask a question, wishlist, report a bug)</li>
       <li><a href="https://www.opendcl.com/forum-archive/">Forum archive search</a></li>
       <li><a href="https://github.com/opendcl/community/discussions/new?category=q-a">Ask a question</a></li>
