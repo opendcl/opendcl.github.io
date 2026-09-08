@@ -56,7 +56,7 @@ download page. Legacy Runtimes that POST `/version/vercheck.php` are not support
 | --- | --- |
 | Chooser (ask / wishlist / bug) | [Community](https://www.opendcl.com/forum/) (`/forum/`) |
 | Ask a question | [Discussions Q&A](https://github.com/opendcl/community/discussions/new?category=q-a) |
-| Wishlist | [Discussions Wishlist](https://github.com/opendcl/community/discussions/new?category=ideas) |
+| Wishlist | [Discussions Wishlist](https://github.com/opendcl/community/discussions/new?category=wishlist) |
 | Report a bug | [OpenDCL Issues](https://github.com/opendcl/OpenDCL/issues/new?template=bug.yml) |
 | Historic forum threads (2007–2026) | [Forum archive](https://opendcl.github.io/forum-archive/) (also [www.opendcl.com/forum-archive](https://www.opendcl.com/forum-archive/)) |
 
