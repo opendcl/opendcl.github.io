@@ -15,8 +15,11 @@
       releaseDownloadBase: 'https://github.com/opendcl/OpenDCL/releases/download'
     };
     var ARCHIVE = 'https://www.opendcl.com/forum-archive';
-    var DISCUSSIONS = 'https://github.com/opendcl/community/discussions';
+    var COMMUNITY = '../forum/';
+    var QUESTION = 'https://github.com/opendcl/community/discussions/new?category=q-a';
+    var WISHLIST = 'https://github.com/opendcl/community/discussions/new?category=ideas';
     var ISSUES = 'https://github.com/opendcl/OpenDCL/issues';
+    var BUG_NEW = ISSUES + '/new?template=bug.yml';
     var HELP = '../HelpFiles/';
     var DOWNLOAD = '../download/';
 
@@ -61,15 +64,15 @@
         return runtime(has('dev'), has('msm'));
       }
 
-      // Forum → archive / discussions
+      // Forum → community chooser, archive language boards, or post chooser
       if (has('forum')) {
-        if (has('post')) return DISCUSSIONS;
+        if (has('post')) return COMMUNITY;
         if (has('de')) return ARCHIVE + '/b/11.html';
         if (has('fr')) return ARCHIVE + '/b/10.html';
         if (has('cn')) return ARCHIVE + '/b/12.html';
         if (has('ru')) return ARCHIVE + '/b/14.html';
         if (has('es')) return ARCHIVE + '/b/16.html';
-        return '../forum/';
+        return COMMUNITY;
       }
 
       // Help
@@ -85,8 +88,9 @@
 
       // Project / tracker → GitHub
       if (has('ossproject')) return 'https://github.com/opendcl/OpenDCL';
-      if (has('bugreport')) return has('new') ? (ISSUES + '/new') : ISSUES;
-      if (has('wishlist')) return DISCUSSIONS;
+      if (has('bugreport')) return has('new') ? BUG_NEW : ISSUES;
+      if (has('wishlist')) return WISHLIST;
+      if (has('question')) return QUESTION;
 
       return DOWNLOAD;
     }

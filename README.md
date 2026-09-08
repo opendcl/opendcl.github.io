@@ -54,10 +54,13 @@ download page. Legacy Runtimes that POST `/version/vercheck.php` are not support
 
 | Need | Where |
 | --- | --- |
-| New questions & conversation | [GitHub Discussions](https://github.com/opendcl/community/discussions) |
+| Chooser (ask / wishlist / bug) | [Community](https://www.opendcl.com/forum/) (`/forum/`) |
+| Ask a question | [Discussions Q&A](https://github.com/opendcl/community/discussions/new?category=q-a) |
+| Wishlist | [Discussions Wishlist](https://github.com/opendcl/community/discussions/new?category=ideas) |
+| Report a bug | [OpenDCL Issues](https://github.com/opendcl/OpenDCL/issues/new?template=bug.yml) |
 | Historic forum threads (2007–2026) | [Forum archive](https://opendcl.github.io/forum-archive/) (also [www.opendcl.com/forum-archive](https://www.opendcl.com/forum-archive/)) |
 
-The legacy SMF forum has been **decommissioned**. This site serves the [forum landing](https://www.opendcl.com/forum/) and topic/board redirects under `/forum/` (custom domain `www.opendcl.com` points here).
+The legacy SMF forum has been **decommissioned**. This site serves the [community chooser](https://www.opendcl.com/forum/) and topic/board redirects under `/forum/` (custom domain `www.opendcl.com` points here). `/go?wishlist` opens a new Wishlist post; `/go?bugreport&new` opens a new bug; `/go?forum&post` returns to the chooser.
 
 ## Local preview
 
